@@ -1,18 +1,20 @@
+const iconBase = import.meta.env.BASE_URL;
+
 const reasons = [
   {
-    icon: "/choose.svg",
+    icon: `${iconBase}choose.svg`,
     title: "AMÉNAGEMENT",
     description:
       "Transformez votre espace de vie avec notre service d'aménagement intérieur.",
   },
   {
-    icon: "/management.svg",
+    icon: `${iconBase}management.svg`,
     title: "GESTION DE COPROPRIÉTÉ",
     description:
       "Notre service de gestion assure une sécurité 24h/24, l'entretien des espaces collectifs et le bon fonctionnement de la résidence.",
   },
   {
-    icon: "/commercial.svg",
+    icon: `${iconBase}commercial.svg`,
     title: "LOCAUX COMMERCIAUX",
     description:
       "Boostez votre activité avec nos locaux commerciaux en location dans des zones stratégiques.",

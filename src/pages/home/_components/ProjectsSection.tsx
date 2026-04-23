@@ -12,7 +12,7 @@ const lifestyleCards = [
   {
     label: "SÉJOUR",
     image:
-      "https://images.unsplash.com/photo-1776362355123-ca966d36e29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+      "https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
   },
   {
     label: "SUITE",
@@ -73,7 +73,7 @@ export default function ProjectsSection() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-16 text-center">
           <p className="section-script-title">Un Style de Vie</p>
-          <h2 className="mt-4 text-3xl font-semibold uppercase tracking-[0.34em] text-foreground md:text-5xl">
+          <h2 className="mt-7 text-3xl font-semibold uppercase tracking-[0.34em] text-foreground md:mt-8 md:text-5xl">
             LUXUEUX ET MODERNE
           </h2>
         </div>

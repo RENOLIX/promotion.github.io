@@ -42,13 +42,6 @@ export default function GallerySection() {
           initial={{ opacity: 0, y: 30 }}
           transition={{ duration: 0.7 }}
         >
-          <div className="mb-4 flex items-center justify-center gap-3">
-            <div className="h-px w-10 bg-primary" />
-            <span className="text-xs font-medium uppercase tracking-[0.35em] text-primary">
-              Réalisation
-            </span>
-            <div className="h-px w-10 bg-primary" />
-          </div>
           <p className="section-script-title">Nos Réalisations</p>
           <h2 className="mt-4 font-serif text-4xl font-bold text-foreground md:text-5xl">
             Des Intérieurs d'Exception
