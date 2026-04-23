@@ -1,55 +1,29 @@
 import type { ReactNode } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { Award, Building2, Handshake, Users } from "lucide-react";
+import { Building2, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import { siteInfo } from "../../lib/site";
 
 const values = [
   {
-    icon: Award,
-    title: "Excellence",
-    desc: "Chaque detail est pense pour depasser vos attentes. Nous ne livrons que ce qui nous rend fiers.",
+    icon: Sparkles,
+    title: "Standing",
+    desc: "Une résidence pensée pour l'élégance, le confort et le raffinement dans chaque détail.",
   },
   {
     icon: Building2,
-    title: "Innovation",
-    desc: "Architecture avant-gardiste et technologies de construction de pointe pour des biens durables.",
+    title: "Architecture",
+    desc: "Des espaces spacieux, une écriture contemporaine et des prestations haut de gamme.",
   },
   {
-    icon: Users,
-    title: "Proximite",
-    desc: "Une equipe dediee vous accompagne de la signature a la remise des cles, et au-dela.",
+    icon: MapPin,
+    title: "Adresse",
+    desc: "Saïd Hamdine, un emplacement stratégique connecté aux pôles essentiels d'Alger.",
   },
   {
-    icon: Handshake,
-    title: "Confiance",
-    desc: "Plus de 850 familles nous ont fait confiance depuis 15 ans. Notre reputation est notre fierte.",
-  },
-];
-
-const team = [
-  {
-    name: "Noureddine Mansouri",
-    role: "Fondateur & PDG",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
-  },
-  {
-    name: "Yasmine Bouzidi",
-    role: "Directrice Architecturale",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
-  },
-  {
-    name: "Mehdi Khelifa",
-    role: "Directeur Commercial",
-    image:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
-  },
-  {
-    name: "Sara Ait Ahmed",
-    role: "Responsable Clientele",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400",
+    icon: ShieldCheck,
+    title: "Service",
+    desc: "Gestion de copropriété, sécurité 24/24 et accompagnement signé AMK Hebbache Immobilier.",
   },
 ];
 
@@ -74,7 +48,7 @@ export default function AProposPage() {
     <div className="min-h-screen bg-background pt-20">
       <div className="relative h-64 overflow-hidden">
         <img
-          alt="A propos"
+          alt="À propos"
           className="h-full w-full object-cover"
           src="https://images.unsplash.com/photo-1604107050756-b5ac1578b0b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
         />
@@ -86,7 +60,7 @@ export default function AProposPage() {
             <div className="h-px w-8 bg-primary" />
           </div>
           <h1 className="text-center font-serif text-4xl font-bold text-foreground md:text-6xl">
-            A Propos
+            À Propos
           </h1>
         </div>
       </div>
@@ -96,41 +70,43 @@ export default function AProposPage() {
           <AnimSection>
             <div className="mb-4 flex items-center gap-3">
               <div className="h-px w-8 bg-primary" />
-              <span className="text-xs uppercase tracking-[0.35em] text-primary">Depuis 2009</span>
+              <span className="text-xs uppercase tracking-[0.35em] text-primary">
+                {siteInfo.promoter}
+              </span>
             </div>
             <h2 className="mb-6 font-serif text-4xl font-bold text-foreground">
-              Batir l'Alger
+              {siteInfo.residence}
               <br />
-              <span className="italic text-primary">de Demain</span>
+              <span className="italic text-primary">à Saïd Hamdine</span>
             </h2>
             <p className="mb-4 leading-relaxed text-muted-foreground">
-              Fondee en 2009 par Noureddine Mansouri, Alger Premium Immobilier est nee d'une
-              vision simple mais ambitieuse : offrir aux Algerois un cadre de vie qui rivalise
-              avec les plus grandes metropoles mondiales.
+              {siteInfo.promoter}, fondée par {siteInfo.founder}, occupe une position
+              prééminente dans la promotion immobilière à Alger avec plus de 30 ans
+              d'expérience et plusieurs réalisations prestigieuses.
             </p>
             <p className="mb-4 leading-relaxed text-muted-foreground">
-              En 15 ans, nous avons livre plus de 12 projets residentiels haut de gamme dans les
-              quartiers les plus prises d'Alger - Hydra, Sidi Yahia, Telemly, Cheraga - et nous
-              continuons a repousser les frontieres de l'excellence.
+              Avec {siteInfo.residence}, le promoteur signe une résidence haut standing de{" "}
+              {siteInfo.apartments}, déclinés en {siteInfo.typologies}, au cœur d'un quartier
+              recherché pour son accessibilité et son calme.
             </p>
             <p className="leading-relaxed text-muted-foreground">
-              Notre approche est fondee sur trois piliers : l'architecture signature, les
-              materiaux de premiere qualite, et un service client d'exception qui dure bien
-              au-dela de la remise des cles.
+              Chaque espace a été conçu pour offrir une vie luxueuse et contemporaine, avec un
+              niveau de finition premium, des équipements modernes et une vraie qualité
+              résidentielle au quotidien.
             </p>
           </AnimSection>
 
           <AnimSection delay={0.2}>
             <div className="relative">
               <img
-                alt="Alger Premium bureau"
+                alt="Résidence La Renaissance"
                 className="aspect-[4/3] w-full object-cover"
                 src="https://images.unsplash.com/photo-1604107050756-b5ac1578b0b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=900"
               />
               <div className="absolute -bottom-6 -right-6 hidden border border-primary bg-card p-6 md:block">
-                <p className="font-serif text-4xl font-bold text-primary">15</p>
+                <p className="font-serif text-4xl font-bold text-primary">30+</p>
                 <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
-                  Annees d'excellence
+                  Ans d'expertise
                 </p>
               </div>
             </div>
@@ -164,31 +140,49 @@ export default function AProposPage() {
           <div className="mb-14 text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <div className="h-px w-8 bg-primary" />
-              <span className="text-xs uppercase tracking-[0.35em] text-primary">L'equipe</span>
+              <span className="text-xs uppercase tracking-[0.35em] text-primary">Repères</span>
               <div className="h-px w-8 bg-primary" />
             </div>
-            <h2 className="font-serif text-4xl font-bold text-foreground">Notre Direction</h2>
+            <h2 className="font-serif text-4xl font-bold text-foreground">La Promotion en Chiffres</h2>
           </div>
         </AnimSection>
 
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
-          {team.map((member, index) => (
-            <AnimSection key={member.name} delay={index * 0.1}>
-              <div className="group text-center">
-                <div className="relative mb-4 aspect-square overflow-hidden">
-                  <img
-                    alt={member.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    src={member.image}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-                </div>
-                <h4 className="font-semibold text-foreground">{member.name}</h4>
-                <p className="mt-1 text-xs uppercase tracking-wider text-primary">{member.role}</p>
+          {[
+            { value: "28", label: "Appartements" },
+            { value: "F4/F5", label: "Typologies principales" },
+            { value: "161 m²", label: "Surface de départ" },
+            { value: "24/24", label: "Sécurité et gestion" },
+          ].map((item, index) => (
+            <AnimSection key={item.label} delay={index * 0.1}>
+              <div className="border border-border bg-card p-8 text-center">
+                <p className="font-serif text-4xl font-bold text-primary">{item.value}</p>
+                <p className="mt-2 text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                  {item.label}
+                </p>
               </div>
             </AnimSection>
           ))}
         </div>
+
+        <AnimSection delay={0.2}>
+          <div className="mt-20 border border-border bg-card p-8">
+            <div className="mb-8 flex items-center gap-3">
+              <div className="h-px w-8 bg-primary" />
+              <span className="text-xs uppercase tracking-[0.35em] text-primary">Prestations</span>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {siteInfo.features.map((feature) => (
+                <div
+                  key={feature}
+                  className="border border-border/80 bg-background/50 px-4 py-4 text-sm text-muted-foreground"
+                >
+                  {feature}
+                </div>
+              ))}
+            </div>
+          </div>
+        </AnimSection>
       </div>
     </div>
   );

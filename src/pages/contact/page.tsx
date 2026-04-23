@@ -1,7 +1,8 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "motion/react";
-import { CheckCircle, Clock, Mail, MapPin, Phone, Send } from "lucide-react";
+import { CheckCircle, Mail, MapPin, Phone, Send } from "lucide-react";
 import { toast } from "sonner";
+import { siteInfo } from "../../lib/site";
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -9,22 +10,26 @@ export default function ContactPage() {
     name: "",
     email: "",
     phone: "",
-    subject: "",
     message: "",
-    project: "",
+    consent: false,
   });
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    if (!form.name || !form.email || !form.message) {
-      toast.error("Veuillez remplir les champs obligatoires.");
+    if (!form.name || !form.email || !form.phone || !form.message) {
+      toast.error("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
+
+    if (!form.consent) {
+      toast.error("Veuillez accepter le consentement avant l'envoi.");
       return;
     }
 
     window.setTimeout(() => {
       setSent(true);
-      toast.success("Votre message a bien ete envoye !");
+      toast.success("Votre demande a bien été envoyée.");
     }, 800);
   };
 
@@ -56,11 +61,11 @@ export default function ContactPage() {
           <div className="space-y-8 lg:col-span-2">
             <div>
               <h2 className="mb-2 font-serif text-2xl font-bold text-foreground">
-                Prenez Rendez-Vous
+                Une équipe vous répond
               </h2>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Notre equipe commerciale est disponible pour vous accompagner dans votre
-                projet d'acquisition. Contactez-nous pour une consultation personnalisee.
+                Contactez {siteInfo.promoter} pour découvrir {siteInfo.residence}, connaître les
+                disponibilités et être accompagné dans votre projet d'acquisition.
               </p>
             </div>
 
@@ -68,23 +73,23 @@ export default function ContactPage() {
               {[
                 {
                   icon: MapPin,
-                  title: "Showroom",
-                  info: "18 Rue Didouche Mourad\nAlger Centre, 16000",
+                  title: "Adresse",
+                  info: siteInfo.fullAddress,
                 },
                 {
                   icon: Phone,
-                  title: "Telephone",
-                  info: "+213 770 000 000\n+213 21 000 000",
+                  title: "Téléphone",
+                  info: siteInfo.phones.join("\n"),
                 },
                 {
                   icon: Mail,
                   title: "Email",
-                  info: "contact@algerpremium.dz\nvente@algerpremium.dz",
+                  info: siteInfo.email,
                 },
                 {
-                  icon: Clock,
-                  title: "Horaires",
-                  info: "Dim - Jeu : 09h00 - 18h00\nSam : 09h00 - 13h00",
+                  icon: MapPin,
+                  title: "La promotion",
+                  info: `${siteInfo.residence}\n${siteInfo.location}`,
                 },
               ].map(({ icon: Icon, title, info }) => (
                 <div key={title} className="flex items-start gap-4">
@@ -105,8 +110,8 @@ export default function ContactPage() {
               <iframe
                 className="h-full w-full grayscale"
                 loading="lazy"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3197.3839226041944!2d3.0453167!3d36.7525127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x128fb26977b85233%3A0x93df45f31aeef3de!2sRue%20Didouche%20Mourad%2C%20Alger!5e0!3m2!1sfr!2sdz!4v1716000000000!5m2!1sfr!2sdz"
-                title="Localisation Alger Premium"
+                src="https://maps.google.com/maps?q=Campagne%20Semmar%20Residence%20El%20Djenane%20Tixeraine%20Birkhadem%20Alger&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                title="Localisation AMK Hebbache Immobilier"
               />
             </div>
           </div>
@@ -115,23 +120,23 @@ export default function ContactPage() {
             {sent ? (
               <motion.div
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex min-h-[500px] h-full flex-col items-center justify-center border border-primary/40 bg-card p-12 text-center"
+                className="flex h-full min-h-[500px] flex-col items-center justify-center border border-primary/40 bg-card p-12 text-center"
                 initial={{ opacity: 0, scale: 0.95 }}
               >
                 <CheckCircle className="mb-6 text-primary" size={56} />
                 <h3 className="mb-3 font-serif text-2xl font-bold text-foreground">
-                  Message Envoye !
+                  Demande envoyée
                 </h3>
                 <p className="max-w-sm text-muted-foreground">
-                  Merci pour votre message. Notre equipe vous contactera dans les 24 heures
-                  ouvrables.
+                  Merci pour votre message. Un conseiller AMK Hebbache Immobilier vous
+                  recontactera rapidement.
                 </p>
                 <button
                   className="mt-8 cursor-pointer border border-border px-6 py-3 text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:border-primary hover:text-primary"
                   onClick={() => setSent(false)}
                   type="button"
                 >
-                  Envoyer un autre message
+                  Envoyer une autre demande
                 </button>
               </motion.div>
             ) : (
@@ -148,7 +153,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Nom complet *
+                      Nom *
                     </label>
                     <input
                       className="w-full border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
@@ -160,61 +165,28 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Email *
-                    </label>
-                    <input
-                      className="w-full border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
-                      onChange={(event) => setForm({ ...form, email: event.target.value })}
-                      placeholder="email@exemple.com"
-                      type="email"
-                      value={form.email}
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div>
-                    <label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Telephone
+                      Téléphone *
                     </label>
                     <input
                       className="w-full border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
                       onChange={(event) => setForm({ ...form, phone: event.target.value })}
-                      placeholder="+213 7XX XXX XXX"
+                      placeholder="+213 ..."
                       type="tel"
                       value={form.phone}
                     />
-                  </div>
-                  <div>
-                    <label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Projet Interesse
-                    </label>
-                    <select
-                      className="w-full cursor-pointer border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors focus:border-primary focus:outline-none"
-                      onChange={(event) => setForm({ ...form, project: event.target.value })}
-                      value={form.project}
-                    >
-                      <option value="">Selectionner…</option>
-                      <option>Residence Al Maqam</option>
-                      <option>Les Terrasses de Sidi Yahia</option>
-                      <option>Bois des Arcades Tower</option>
-                      <option>Collines de Cheraga</option>
-                      <option>Marina Bay Alger</option>
-                      <option>Palais du Telemly</option>
-                    </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                    Objet
+                    Email *
                   </label>
                   <input
                     className="w-full border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
-                    onChange={(event) => setForm({ ...form, subject: event.target.value })}
-                    placeholder="Sujet de votre demande"
-                    type="text"
-                    value={form.subject}
+                    onChange={(event) => setForm({ ...form, email: event.target.value })}
+                    placeholder="email@exemple.com"
+                    type="email"
+                    value={form.email}
                   />
                 </div>
 
@@ -225,18 +197,32 @@ export default function ContactPage() {
                   <textarea
                     className="w-full resize-none border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
                     onChange={(event) => setForm({ ...form, message: event.target.value })}
-                    placeholder="Decrivez votre projet, vos besoins…"
+                    placeholder="Décrivez votre demande..."
                     rows={5}
                     value={form.message}
                   />
                 </div>
+
+                <label className="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <input
+                    checked={form.consent}
+                    className="mt-1 size-4 accent-[#F7C66A]"
+                    onChange={(event) => setForm({ ...form, consent: event.target.checked })}
+                    type="checkbox"
+                  />
+                  <span>
+                    CONSENTEMENT : J'accepte que mes données soient utilisées pour le traitement
+                    de ma demande en conformité avec la loi 18-07 révisée et compléter par la loi
+                    11-25.
+                  </span>
+                </label>
 
                 <button
                   className="group flex w-full items-center justify-center gap-3 bg-primary py-4 text-sm font-semibold uppercase tracking-widest text-primary-foreground transition-colors hover:bg-primary/90"
                   type="submit"
                 >
                   <Send size={15} />
-                  Envoyer le Message
+                  Prendre contact
                 </button>
               </motion.form>
             )}

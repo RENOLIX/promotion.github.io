@@ -105,7 +105,7 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
           <img
             alt="Appartement de luxe"
             className="h-full w-full object-cover"
-            src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1920&q=80"
+            src="https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
           />
           <div className="absolute inset-0 bg-background/60" />
         </motion.div>

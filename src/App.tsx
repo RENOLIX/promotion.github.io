@@ -8,7 +8,6 @@ import ContactPage from "./pages/contact/page";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProjetsPage from "./pages/projets/page";
-import Visite3DPage from "./pages/visite-3d/page";
 
 export default function App() {
   return (
@@ -19,7 +18,6 @@ export default function App() {
           <Route path="/" element={<Index />} />
           <Route element={<AppLayout />}>
             <Route path="/projets" element={<ProjetsPage />} />
-            <Route path="/visite-3d" element={<Visite3DPage />} />
             <Route path="/a-propos" element={<AProposPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Route>

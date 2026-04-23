@@ -4,9 +4,9 @@ import SiteHeader from "../components/layout/SiteHeader";
 import DoorIntro from "./home/_components/DoorIntro";
 import GallerySection from "./home/_components/GallerySection";
 import HeroSection from "./home/_components/HeroSection";
+import InterestSection from "./home/_components/InterestSection";
 import ProjectsSection from "./home/_components/ProjectsSection";
-import TestimonialsSection from "./home/_components/TestimonialsSection";
-import TourSection from "./home/_components/TourSection";
+import WhyChooseSection from "./home/_components/WhyChooseSection";
 
 export default function Index() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -23,9 +23,9 @@ export default function Index() {
           <SiteHeader />
           <HeroSection />
           <ProjectsSection />
-          <TourSection />
           <GallerySection />
-          <TestimonialsSection />
+          <WhyChooseSection />
+          <InterestSection />
           <SiteFooter />
         </>
       ) : null}

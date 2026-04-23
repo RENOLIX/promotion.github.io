@@ -2,13 +2,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const distPath = path.join(process.cwd(), "dist");
-const staticRoutes = [
-  "projets",
-  "visite-3d",
-  "a-propos",
-  "contact",
-  "auth/callback",
-];
+const staticRoutes = ["projets", "a-propos", "contact", "auth/callback"];
 
 async function ensureStaticRoute(routePath, html) {
   const outputDir = path.join(distPath, routePath);

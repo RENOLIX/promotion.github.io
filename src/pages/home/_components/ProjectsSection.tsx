@@ -1,160 +1,228 @@
-import { useRef } from "react";
-import { motion, useInView } from "motion/react";
-import { ArrowRight, BedDouble, MapPin, Maximize } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMobile } from "../../../hooks/use-mobile";
 
-const projects = [
+const lifestyleCards = [
   {
-    id: 1,
-    name: "Residence Al Maqam",
-    location: "Hydra, Alger",
-    type: "Appartements & Penthouses",
-    surface: "80 - 320 m2",
-    rooms: "2 - 5 pieces",
-    status: "En cours",
-    statusColor: "text-green-400",
-    price: "A partir de 45 M DA",
+    label: "CUISINE",
     image:
-      "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1757439402127-b786187f9bc2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
   },
   {
-    id: 2,
-    name: "Les Terrasses de Sidi Yahia",
-    location: "Sidi Yahia, Alger",
-    type: "Duplex & Appartements",
-    surface: "100 - 250 m2",
-    rooms: "3 - 6 pieces",
-    status: "Disponible",
-    statusColor: "text-primary",
-    price: "A partir de 62 M DA",
+    label: "SÉJOUR",
     image:
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1776362355123-ca966d36e29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
   },
   {
-    id: 3,
-    name: "Bois des Arcades Tower",
-    location: "Bab Ezzouar, Alger",
-    type: "Bureaux & Residentiel",
-    surface: "60 - 180 m2",
-    rooms: "1 - 4 pieces",
-    status: "Pre-vente",
-    statusColor: "text-yellow-400",
-    price: "A partir de 28 M DA",
+    label: "SUITE",
     image:
-      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1651132205872-091b35e72b15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+  },
+  {
+    label: "PISCINE",
+    image:
+      "https://images.unsplash.com/photo-1758448617677-2f8bebc56d9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+  },
+  {
+    label: "SALLE D'EAU",
+    image:
+      "https://images.unsplash.com/photo-1776348065068-476a708a2d3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
   },
 ];
 
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: (typeof projects)[0];
-  index: number;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+function getOffset(index: number, activeIndex: number, total: number) {
+  let offset = index - activeIndex;
+  const half = Math.floor(total / 2);
 
-  return (
-    <motion.div
-      ref={ref}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      className="group relative cursor-pointer overflow-hidden border border-border bg-card transition-all duration-500 hover:border-primary/50"
-      initial={{ opacity: 0, y: 60 }}
-      transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
-    >
-      <div className="relative h-72 overflow-hidden">
-        <img
-          alt={project.name}
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          src={project.image}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
-        <div className="absolute left-4 top-4">
-          <span
-            className={`bg-background/90 px-3 py-1 text-xs font-semibold uppercase tracking-widest backdrop-blur-sm ${project.statusColor}`}
-          >
-            {project.status}
-          </span>
-        </div>
-      </div>
+  if (offset > half) offset -= total;
+  if (offset < -half) offset += total;
 
-      <div className="p-6">
-        <p className="mb-2 text-xs uppercase tracking-widest text-primary">{project.type}</p>
-        <h3 className="mb-2 font-serif text-xl font-bold text-foreground">{project.name}</h3>
-        <div className="mb-5 flex items-center gap-1 text-sm text-muted-foreground">
-          <MapPin className="text-primary" size={12} />
-          <span>{project.location}</span>
-        </div>
-
-        <div className="mb-5 flex gap-4">
-          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Maximize className="text-primary" size={13} />
-            <span>{project.surface}</span>
-          </div>
-          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <BedDouble className="text-primary" size={13} />
-            <span>{project.rooms}</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-border pt-4">
-          <p className="text-sm font-semibold text-foreground">{project.price}</p>
-          <Link
-            className="group/btn flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-primary transition-all hover:gap-2.5"
-            to="/projets"
-          >
-            Voir le Projet
-            <ArrowRight
-              className="transition-transform group-hover/btn:translate-x-1"
-              size={13}
-            />
-          </Link>
-        </div>
-      </div>
-    </motion.div>
-  );
+  return offset;
 }
 
 export default function ProjectsSection() {
-  const titleRef = useRef(null);
-  const titleInView = useInView(titleRef, { once: true });
+  const [activeIndex, setActiveIndex] = useState(1);
+  const isMobile = useMobile();
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % lifestyleCards.length);
+    }, 4800);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  const activeItem = lifestyleCards[activeIndex];
+
+  const cards = useMemo(
+    () =>
+      lifestyleCards.map((item, index) => ({
+        ...item,
+        offset: getOffset(index, activeIndex, lifestyleCards.length),
+      })),
+    [activeIndex],
+  );
+
+  const goNext = () => setActiveIndex((prev) => (prev + 1) % lifestyleCards.length);
+  const goPrev = () =>
+    setActiveIndex((prev) => (prev - 1 + lifestyleCards.length) % lifestyleCards.length);
 
   return (
     <section className="bg-background py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div
-          ref={titleRef}
-          animate={titleInView ? { opacity: 1, y: 0 } : {}}
-          className="mb-16"
-          initial={{ opacity: 0, y: 40 }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="mb-4 flex items-center gap-3">
-            <div className="h-px w-10 bg-primary" />
-            <span className="text-xs font-medium uppercase tracking-[0.35em] text-primary">
-              Nos Realisations
-            </span>
-          </div>
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl">
-              Projets en Vedette
-            </h2>
-            <Link
-              className="group flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-              to="/projets"
-            >
-              Voir tous les projets
-              <ArrowRight className="transition-transform group-hover:translate-x-1" size={14} />
-            </Link>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.id} index={index} project={project} />
-          ))}
+        <div className="mb-16 text-center">
+          <p className="section-script-title">Un Style de Vie</p>
+          <h2 className="mt-4 text-3xl font-semibold uppercase tracking-[0.34em] text-foreground md:text-5xl">
+            LUXUEUX ET MODERNE
+          </h2>
         </div>
+
+        {isMobile ? (
+          <div className="mx-auto max-w-xl">
+            <div className="relative overflow-hidden rounded-[30px] border border-white/12 bg-card">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeItem.label}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="relative"
+                  exit={{ opacity: 0, x: -40 }}
+                  initial={{ opacity: 0, x: 40 }}
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                >
+                  <img
+                    alt={activeItem.label}
+                    className="h-[460px] w-full object-cover"
+                    src={activeItem.image}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <span className="text-xs uppercase tracking-[0.34em] text-primary">
+                      Un style de vie
+                    </span>
+                    <h3 className="mt-3 font-serif text-4xl font-bold text-white">
+                      {activeItem.label}
+                    </h3>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <div className="mt-6 flex items-center justify-between">
+              <button
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                onClick={goPrev}
+                type="button"
+              >
+                <ChevronLeft size={18} />
+              </button>
+
+              <div className="flex items-center gap-2">
+                {lifestyleCards.map((item, index) => (
+                  <button
+                    key={item.label}
+                    aria-label={item.label}
+                    className={`h-2.5 rounded-full transition-all ${
+                      activeIndex === index ? "w-10 bg-primary" : "w-2.5 bg-white/25"
+                    }`}
+                    onClick={() => setActiveIndex(index)}
+                    type="button"
+                  />
+                ))}
+              </div>
+
+              <button
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                onClick={goNext}
+                type="button"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="relative mx-auto h-[600px] max-w-6xl overflow-hidden">
+            {cards.map((item, index) => {
+              const isCenter = item.offset === 0;
+              const isSide = Math.abs(item.offset) === 1;
+              const hidden = Math.abs(item.offset) > 1;
+
+              const transform =
+                item.offset === 0
+                  ? "translate(-50%, 0) scale(1)"
+                  : item.offset === -1
+                    ? "translate(calc(-50% - 24rem), 2.2rem) scale(0.84)"
+                    : item.offset === 1
+                      ? "translate(calc(-50% + 24rem), 2.2rem) scale(0.84)"
+                      : item.offset < 0
+                        ? "translate(calc(-50% - 40rem), 4rem) scale(0.72)"
+                        : "translate(calc(-50% + 40rem), 4rem) scale(0.72)";
+
+              return (
+                <button
+                  key={item.label}
+                  className="absolute left-1/2 top-0 h-[520px] w-[430px] overflow-hidden rounded-[32px] border border-white/12 bg-card text-left transition-all duration-700 ease-out"
+                  onClick={() => setActiveIndex(index)}
+                  style={{
+                    transform,
+                    opacity: hidden ? 0 : isCenter ? 1 : 0.55,
+                    filter: isCenter ? "blur(0px)" : isSide ? "blur(2px)" : "blur(8px)",
+                    zIndex: isCenter ? 30 : isSide ? 20 : 10,
+                    pointerEvents: hidden ? "none" : "auto",
+                  }}
+                  type="button"
+                >
+                  <img alt={item.label} className="h-full w-full object-cover" src={item.image} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/10 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <span className="text-xs uppercase tracking-[0.34em] text-primary">
+                      Intérieur signature
+                    </span>
+                    <h3 className="mt-4 font-serif text-5xl font-bold text-white">
+                      {item.label}
+                    </h3>
+                  </div>
+                </button>
+              );
+            })}
+
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-background to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-28 bg-gradient-to-l from-background to-transparent" />
+
+            <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 items-center gap-4">
+              <button
+                className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                onClick={goPrev}
+                type="button"
+              >
+                <ChevronLeft size={18} />
+              </button>
+
+              <div className="flex items-center gap-3">
+                {lifestyleCards.map((item, index) => (
+                  <button
+                    key={item.label}
+                    className={`pointer-events-auto text-xs uppercase tracking-[0.28em] transition-colors ${
+                      activeIndex === index ? "text-primary" : "text-white/45"
+                    }`}
+                    onClick={() => setActiveIndex(index)}
+                    type="button"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                onClick={goNext}
+                type="button"
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

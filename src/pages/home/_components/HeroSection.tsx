@@ -10,9 +10,9 @@ export default function HeroSection() {
     <section className="relative flex min-h-screen items-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          alt="Residence de luxe a Alger"
+          alt="Résidence de luxe à Alger"
           className="h-full w-full object-cover"
-          src="https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1920&q=80"
+          src="https://images.unsplash.com/photo-1701158662878-ca7c70d87504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
@@ -27,8 +27,8 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-32 lg:px-8">
-        <div className="max-w-3xl">
+      <div className="relative mx-auto flex w-full max-w-7xl items-start px-6 pb-14 pt-32 lg:px-8">
+        <div className="max-w-3xl lg:max-w-4xl">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             initial={{ opacity: 0, y: 30 }}
@@ -37,7 +37,7 @@ export default function HeroSection() {
             <div className="mb-6 flex items-center gap-3">
               <div className="h-px w-12 bg-primary" />
               <span className="text-xs font-medium uppercase tracking-[0.35em] text-primary">
-                Alger - Residences d'Exception
+                Alger - Résidences d'Exception
               </span>
             </div>
           </motion.div>
@@ -51,7 +51,7 @@ export default function HeroSection() {
             L'Art de
             <br />
             <span className="italic text-primary">Vivre</span>
-            <br />a Alger
+            <br />à Alger
           </motion.h1>
 
           <motion.p
@@ -60,8 +60,8 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             transition={{ duration: 0.8, delay: 3.9 }}
           >
-            Des residences pensees pour l'elite algeroise. Architecture contemporaine,
-            finitions haut de gamme, vues imprenables sur la Mediterranee.
+            Des résidences pensées pour l'élite algéroise. Architecture contemporaine,
+            finitions haut de gamme, vues imprenables sur la Méditerranée.
           </motion.p>
 
           <motion.div
@@ -74,7 +74,7 @@ export default function HeroSection() {
               className="group flex items-center gap-3 bg-primary px-7 py-4 text-sm font-semibold uppercase tracking-widest text-primary-foreground transition-all hover:bg-primary/90"
               to="/projets"
             >
-              Decouvrir les Projets
+              Découvrir les Projets
               <ArrowRight
                 className="transition-transform group-hover:translate-x-1"
                 size={16}
@@ -91,6 +91,30 @@ export default function HeroSection() {
               Visite Virtuelle
             </button>
           </motion.div>
+
+          <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-16 grid max-w-5xl grid-cols-2 gap-4 md:grid-cols-4"
+            initial={{ opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 4.2 }}
+          >
+            {[
+              { value: "12+", label: "Projets Livrés" },
+              { value: "850+", label: "Familles Satisfaites" },
+              { value: "15 ans", label: "D'Expertise" },
+              { value: "4", label: "Wilayas Couvertes" },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="hero-stat-card border border-white/8 px-6 py-5 text-left"
+              >
+                <p className="font-serif text-2xl font-bold text-primary">{stat.value}</p>
+                <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
@@ -101,36 +125,13 @@ export default function HeroSection() {
         transition={{ delay: 4.5, duration: 1 }}
       >
         <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-          Defiler
+          Défiler
         </span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           className="h-10 w-px bg-gradient-to-b from-primary to-transparent"
           transition={{ duration: 1.5, repeat: Infinity }}
         />
-      </motion.div>
-
-      <motion.div
-        animate={{ opacity: 1, y: 0 }}
-        className="absolute bottom-0 left-0 right-0 border-t border-border bg-background/80 backdrop-blur-sm"
-        initial={{ opacity: 0, y: 30 }}
-        transition={{ duration: 0.8, delay: 4.2 }}
-      >
-        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-border px-6 lg:grid-cols-4 lg:px-8">
-          {[
-            { value: "12+", label: "Projets Livres" },
-            { value: "850+", label: "Familles Satisfaites" },
-            { value: "15ans", label: "D'Expertise" },
-            { value: "4", label: "Wilayas Couvertes" },
-          ].map((stat) => (
-            <div key={stat.label} className="px-6 py-5 text-center">
-              <p className="font-serif text-2xl font-bold text-primary">{stat.value}</p>
-              <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
       </motion.div>
 
       {tourOpen ? (

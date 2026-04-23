@@ -1,13 +1,13 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { siteInfo } from "../../lib/site";
 import { cn } from "../../lib/utils";
 
 const links = [
   { label: "Accueil", to: "/" },
-  { label: "Projets", to: "/projets" },
-  { label: "Visite 3D", to: "/visite-3d" },
-  { label: "A propos", to: "/a-propos" },
+  { label: "La promotion", to: "/projets" },
+  { label: "À propos", to: "/a-propos" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -24,12 +24,14 @@ export default function SiteHeader() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Link className="flex items-center gap-4" to="/">
           <span className="flex size-11 items-center justify-center border border-primary/50 bg-secondary font-serif text-lg font-bold text-primary">
-            AP
+            LR
           </span>
           <div className="hidden sm:block">
-            <p className="font-serif text-lg font-bold text-foreground">Alger Premium</p>
+            <p className="font-serif text-lg font-bold text-foreground">
+              {siteInfo.residenceShort}
+            </p>
             <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-              Immobilier Signature
+              {siteInfo.promoter}
             </p>
           </div>
         </Link>
@@ -56,7 +58,7 @@ export default function SiteHeader() {
             className="inline-flex items-center gap-3 bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-colors hover:bg-primary/90"
             to="/contact"
           >
-            Reserver une visite
+            Prendre contact
           </Link>
         </div>
 
@@ -91,7 +93,7 @@ export default function SiteHeader() {
             className="mt-2 inline-flex items-center justify-center gap-3 bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground"
             to="/contact"
           >
-            Prendre rendez-vous
+            Prendre contact
           </Link>
         </div>
       </div>

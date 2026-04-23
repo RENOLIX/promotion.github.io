@@ -3,28 +3,28 @@ import { motion, useInView } from "motion/react";
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
     label: "Salon",
     span: "md:col-span-2 md:row-span-2",
   },
   {
-    src: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=900&q=80",
+    src: "https://images.unsplash.com/photo-1757439402127-b786187f9bc2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
     label: "Cuisine",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80",
+    src: "https://images.unsplash.com/photo-1776348065068-476a708a2d3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
     label: "Chambre",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80",
+    src: "https://images.unsplash.com/photo-1651132205872-091b35e72b15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
     label: "Suite Master",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
-    label: "Sejour",
+    src: "https://images.unsplash.com/photo-1776362355123-ca966d36e29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
+    label: "Séjour",
     span: "md:col-span-2 md:row-span-1",
   },
 ];
@@ -45,12 +45,13 @@ export default function GallerySection() {
           <div className="mb-4 flex items-center justify-center gap-3">
             <div className="h-px w-10 bg-primary" />
             <span className="text-xs font-medium uppercase tracking-[0.35em] text-primary">
-              Galerie
+              Réalisation
             </span>
             <div className="h-px w-10 bg-primary" />
           </div>
-          <h2 className="font-serif text-4xl font-bold text-foreground md:text-5xl">
-            Des Interieurs d'Exception
+          <p className="section-script-title">Nos Réalisations</p>
+          <h2 className="mt-4 font-serif text-4xl font-bold text-foreground md:text-5xl">
+            Des Intérieurs d'Exception
           </h2>
         </motion.div>
 
@@ -64,7 +65,7 @@ export default function GallerySection() {
             <motion.div
               key={img.label}
               animate={inView ? { opacity: 1, scale: 1 } : {}}
-              className={`${img.span} group relative overflow-hidden cursor-pointer border border-border`}
+              className={`${img.span} group relative cursor-pointer overflow-hidden border border-border`}
               initial={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.6, delay: 0.1 * index + 0.3 }}
             >
