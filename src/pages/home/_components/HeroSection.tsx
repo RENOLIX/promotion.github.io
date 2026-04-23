@@ -1,11 +1,15 @@
-import { useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export default function HeroSection() {
-  const [tourOpen, setTourOpen] = useState(false);
+const stats = [
+  { value: "12+", label: "Projets Livrés" },
+  { value: "850+", label: "Familles Satisfaites" },
+  { value: "15 ans", label: "D'Expertise" },
+  { value: "4", label: "Wilayas Couvertes" },
+];
 
+export default function HeroSection() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
       <div className="absolute inset-0">
@@ -27,12 +31,12 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto flex w-full max-w-7xl items-start px-6 pb-14 pt-32 lg:px-8">
+      <div className="relative mx-auto flex w-full max-w-7xl items-start px-6 pb-44 pt-32 lg:px-8">
         <div className="max-w-3xl lg:max-w-4xl">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            initial={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 3.4 }}
+            initial={{ opacity: 0, y: 18 }}
+            transition={{ duration: 0.38, delay: 0.08 }}
           >
             <div className="mb-6 flex items-center gap-3">
               <div className="h-px w-12 bg-primary" />
@@ -45,8 +49,8 @@ export default function HeroSection() {
           <motion.h1
             animate={{ opacity: 1, y: 0 }}
             className="mb-6 font-serif text-5xl leading-[1.05] text-balance text-foreground md:text-7xl lg:text-8xl"
-            initial={{ opacity: 0, y: 40 }}
-            transition={{ duration: 1, delay: 3.6 }}
+            initial={{ opacity: 0, y: 22 }}
+            transition={{ duration: 0.48, delay: 0.16 }}
           >
             L'Art de
             <br />
@@ -57,8 +61,8 @@ export default function HeroSection() {
           <motion.p
             animate={{ opacity: 1, y: 0 }}
             className="mb-10 max-w-xl text-lg leading-relaxed text-muted-foreground"
-            initial={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 3.9 }}
+            initial={{ opacity: 0, y: 18 }}
+            transition={{ duration: 0.42, delay: 0.24 }}
           >
             Des résidences pensées pour l'élite algéroise. Architecture contemporaine,
             finitions haut de gamme, vues imprenables sur la Méditerranée.
@@ -67,62 +71,28 @@ export default function HeroSection() {
           <motion.div
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-wrap gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.8, delay: 4.1 }}
+            initial={{ opacity: 0, y: 14 }}
+            transition={{ duration: 0.36, delay: 0.3 }}
           >
             <Link
               className="group flex items-center gap-3 bg-primary px-7 py-4 text-sm font-semibold uppercase tracking-widest text-primary-foreground transition-all hover:bg-primary/90"
               to="/projets"
             >
-              Découvrir les Projets
+              Découvrir
               <ArrowRight
                 className="transition-transform group-hover:translate-x-1"
                 size={16}
               />
             </Link>
-            <button
-              className="group flex items-center gap-3 border border-border px-7 py-4 text-sm font-semibold uppercase tracking-widest text-foreground transition-all hover:border-primary hover:text-primary"
-              onClick={() => setTourOpen(true)}
-              type="button"
-            >
-              <div className="flex size-6 items-center justify-center rounded-full border border-current">
-                <Play className="ml-0.5" fill="currentColor" size={10} />
-              </div>
-              Visite Virtuelle
-            </button>
-          </motion.div>
-
-          <motion.div
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-16 grid max-w-5xl grid-cols-2 gap-4 md:grid-cols-4"
-            initial={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.8, delay: 4.2 }}
-          >
-            {[
-              { value: "12+", label: "Projets Livrés" },
-              { value: "850+", label: "Familles Satisfaites" },
-              { value: "15 ans", label: "D'Expertise" },
-              { value: "4", label: "Wilayas Couvertes" },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="hero-stat-card border border-white/8 px-6 py-5 text-left"
-              >
-                <p className="font-serif text-2xl font-bold text-primary">{stat.value}</p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
           </motion.div>
         </div>
       </div>
 
       <motion.div
         animate={{ opacity: 1 }}
-        className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+        className="absolute bottom-32 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
         initial={{ opacity: 0 }}
-        transition={{ delay: 4.5, duration: 1 }}
+        transition={{ delay: 0.42, duration: 0.45 }}
       >
         <span className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
           Défiler
@@ -134,25 +104,26 @@ export default function HeroSection() {
         />
       </motion.div>
 
-      {tourOpen ? (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-background/95 p-6 backdrop-blur-sm"
-          onClick={() => setTourOpen(false)}
-        >
-          <div
-            className="aspect-video w-full max-w-5xl overflow-hidden border border-border bg-card"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <iframe
-              allow="xr-spatial-tracking; gyroscope; accelerometer"
-              allowFullScreen
-              className="h-full w-full"
-              src="https://my.matterport.com/show/?m=SxQL3iGyvYk&play=1&qs=1&lang=fr"
-              title="Preview 3D"
-            />
-          </div>
+      <motion.div
+        animate={{ opacity: 1, y: 0 }}
+        className="absolute bottom-0 left-0 right-0 border-t border-white/10 bg-background/72 backdrop-blur-md"
+        initial={{ opacity: 0, y: 26 }}
+        transition={{ duration: 0.45, delay: 0.34 }}
+      >
+        <div className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="hero-stat-card border-r border-white/8 px-6 py-6 text-center last:border-r-0 md:px-8"
+            >
+              <p className="font-serif text-2xl font-bold text-primary">{stat.value}</p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">
+                {stat.label}
+              </p>
+            </div>
+          ))}
         </div>
-      ) : null}
+      </motion.div>
     </section>
   );
 }
