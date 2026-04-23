@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import { DefaultProviders } from "./components/providers/default";
 import { getRouterBasename } from "./lib/utils";
@@ -9,10 +10,21 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ProjetsPage from "./pages/projets/page";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <DefaultProviders>
       <BrowserRouter basename={getRouterBasename()}>
+        <ScrollToTop />
         <Routes>
           <Route path="/auth/callback" element={<AuthCallback />} />
           <Route path="/" element={<Index />} />

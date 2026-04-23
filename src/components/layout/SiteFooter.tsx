@@ -1,4 +1,4 @@
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { siteInfo } from "../../lib/site";
 
@@ -7,26 +7,6 @@ export default function SiteFooter() {
     <footer className="relative overflow-hidden border-t border-border bg-secondary/25">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,oklch(0.76_0.13_72/0.14),transparent_30%)]" />
       <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="mb-14 grid gap-8 border border-border bg-card/70 p-8 backdrop-blur-sm lg:grid-cols-[1.3fr_0.7fr]">
-          <div>
-            <p className="mb-3 text-xs uppercase tracking-[0.35em] text-primary">
-              {siteInfo.promoter}
-            </p>
-            <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
-              {siteInfo.residence}, une adresse signature pensée pour un art de vivre haut
-              standing à Alger.
-            </h2>
-          </div>
-          <div className="flex items-end justify-start lg:justify-end">
-            <Link
-              className="inline-flex items-center gap-3 bg-primary px-7 py-4 text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-colors hover:bg-primary/90"
-              to="/contact"
-            >
-              Demander un rappel <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-
         <div className="grid gap-10 md:grid-cols-2 xl:grid-cols-4">
           <div>
             <div className="mb-5 flex items-center gap-4">

@@ -31,7 +31,7 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto flex w-full max-w-7xl items-start px-6 pb-44 pt-32 lg:px-8">
+      <div className="relative mx-auto flex w-full max-w-7xl items-start px-6 pb-72 pt-32 md:pb-52 lg:px-8">
         <div className="max-w-3xl lg:max-w-4xl">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +70,7 @@ export default function HeroSection() {
 
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-wrap gap-4 pb-4"
             initial={{ opacity: 0, y: 14 }}
             transition={{ duration: 0.36, delay: 0.3 }}
           >
@@ -90,7 +90,7 @@ export default function HeroSection() {
 
       <motion.div
         animate={{ opacity: 1 }}
-        className="absolute bottom-32 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
+        className="absolute bottom-48 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 md:bottom-32"
         initial={{ opacity: 0 }}
         transition={{ delay: 0.42, duration: 0.45 }}
       >
@@ -111,10 +111,14 @@ export default function HeroSection() {
         transition={{ duration: 0.45, delay: 0.34 }}
       >
         <div className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
-          {stats.map((stat) => (
+          {stats.map((stat, index) => (
             <div
               key={stat.label}
-              className="hero-stat-card border-r border-white/8 px-6 py-6 text-center last:border-r-0 md:px-8"
+              className={`hero-stat-card px-5 py-5 text-center md:px-8 md:py-6 ${
+                index % 2 === 0 ? "border-r border-white/8" : ""
+              } ${index < 2 ? "border-b border-white/8 md:border-b-0" : ""} ${
+                index !== stats.length - 1 ? "md:border-r md:border-white/8" : ""
+              }`}
             >
               <p className="font-serif text-2xl font-bold text-primary">{stat.value}</p>
               <p className="mt-1 text-xs uppercase tracking-wider text-muted-foreground">

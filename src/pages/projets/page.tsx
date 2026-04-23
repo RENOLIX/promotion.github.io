@@ -1,5 +1,18 @@
 import { motion } from "motion/react";
-import { ArrowRight, Building2, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import {
+  AirVent,
+  ArrowRight,
+  ArrowUpDown,
+  Bath,
+  Building2,
+  CarFront,
+  ChefHat,
+  KeyRound,
+  MapPin,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { siteInfo } from "../../lib/site";
 
@@ -10,6 +23,17 @@ const visuals = [
   "https://images.unsplash.com/photo-1763241178029-85a7c05b6108?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
   "https://images.unsplash.com/photo-1651009793956-6684bba370f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
   "https://images.unsplash.com/photo-1776362355123-ca966d36e29c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
+];
+
+const featureItems = [
+  { icon: ChefHat, label: "Cuisine équipée" },
+  { icon: Bath, label: "Salle de bain moderne" },
+  { icon: Smartphone, label: "Domotique" },
+  { icon: ArrowUpDown, label: "Ascenseurs" },
+  { icon: CarFront, label: "Parking sous-sol" },
+  { icon: ShieldCheck, label: "Sécurité 24/24" },
+  { icon: KeyRound, label: "Gestion de copropriété" },
+  { icon: AirVent, label: "Chauffage et climatisation centralisés" },
 ];
 
 export default function ProjetsPage() {
@@ -128,12 +152,13 @@ export default function ProjetsPage() {
               </span>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              {siteInfo.features.map((feature) => (
+              {featureItems.map((feature) => (
                 <div
-                  key={feature}
-                  className="border border-border/70 bg-background/45 px-4 py-4 text-sm text-muted-foreground"
+                  key={feature.label}
+                  className="flex items-center gap-3 border border-border/70 bg-background/45 px-4 py-4 text-sm text-muted-foreground"
                 >
-                  {feature}
+                  <feature.icon className="shrink-0 text-primary" size={18} />
+                  <span>{feature.label}</span>
                 </div>
               ))}
             </div>
@@ -148,7 +173,10 @@ export default function ProjetsPage() {
             </div>
             <div className="space-y-4">
               {siteInfo.nearby.map((item) => (
-                <div key={item} className="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
+                <div
+                  key={item}
+                  className="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground"
+                >
                   <span className="mt-1 size-2 rounded-full bg-primary" />
                   <span>{item}</span>
                 </div>
