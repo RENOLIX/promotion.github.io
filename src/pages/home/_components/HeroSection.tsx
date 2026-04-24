@@ -1,24 +1,18 @@
 import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const stats = [
-  { value: "12+", label: "Projets Livrés" },
-  { value: "850+", label: "Familles Satisfaites" },
-  { value: "15 ans", label: "D'Expertise" },
-  { value: "4", label: "Wilayas Couvertes" },
-];
+import { heroStats, siteInfo } from "../../../lib/site";
 
 export default function HeroSection() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
       <div className="absolute inset-0">
         <img
-          alt="Résidence de luxe à Alger"
+          alt={siteInfo.promoter}
           className="h-full w-full object-cover"
-          src="https://images.unsplash.com/photo-1701158662878-ca7c70d87504?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
+          src={`${import.meta.env.BASE_URL}el-azzali/hero.jpeg`}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/70 to-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/72 to-background/18" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
       </div>
 
@@ -31,7 +25,7 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative mx-auto flex w-full max-w-7xl items-start px-6 pb-72 pt-32 md:pb-52 lg:px-8">
+      <div className="relative mx-auto flex w-full max-w-7xl items-start px-6 pb-80 pt-32 md:pb-56 lg:px-8">
         <div className="max-w-3xl lg:max-w-4xl">
           <motion.div
             animate={{ opacity: 1, y: 0 }}
@@ -41,7 +35,7 @@ export default function HeroSection() {
             <div className="mb-6 flex items-center gap-3">
               <div className="h-px w-12 bg-primary" />
               <span className="text-xs font-medium uppercase tracking-[0.35em] text-primary">
-                Alger - Résidences d'Exception
+                Draria - Lotissement Belda
               </span>
             </div>
           </motion.div>
@@ -55,22 +49,21 @@ export default function HeroSection() {
             L'Art de
             <br />
             <span className="italic text-primary">Vivre</span>
-            <br />à Alger
+            <br />à Draria
           </motion.h1>
 
           <motion.p
             animate={{ opacity: 1, y: 0 }}
-            className="mb-10 max-w-xl text-lg leading-relaxed text-muted-foreground"
+            className="mb-10 max-w-2xl text-lg leading-relaxed text-muted-foreground"
             initial={{ opacity: 0, y: 18 }}
             transition={{ duration: 0.42, delay: 0.24 }}
           >
-            Des résidences pensées pour l'élite algéroise. Architecture contemporaine,
-            finitions haut de gamme, vues imprenables sur la Méditerranée.
+            {siteInfo.heroDescription}
           </motion.p>
 
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-wrap gap-4 pb-4"
+            className="flex flex-wrap gap-4 pb-6"
             initial={{ opacity: 0, y: 14 }}
             transition={{ duration: 0.36, delay: 0.3 }}
           >
@@ -111,13 +104,13 @@ export default function HeroSection() {
         transition={{ duration: 0.45, delay: 0.34 }}
       >
         <div className="mx-auto grid max-w-7xl grid-cols-2 md:grid-cols-4">
-          {stats.map((stat, index) => (
+          {heroStats.map((stat, index) => (
             <div
               key={stat.label}
               className={`hero-stat-card px-5 py-5 text-center md:px-8 md:py-6 ${
                 index % 2 === 0 ? "border-r border-white/8" : ""
               } ${index < 2 ? "border-b border-white/8 md:border-b-0" : ""} ${
-                index !== stats.length - 1 ? "md:border-r md:border-white/8" : ""
+                index !== heroStats.length - 1 ? "md:border-r md:border-white/8" : ""
               }`}
             >
               <p className="font-serif text-2xl font-bold text-primary">{stat.value}</p>

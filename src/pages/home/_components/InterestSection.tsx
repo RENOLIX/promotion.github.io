@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { toast } from "sonner";
+import { siteInfo } from "../../../lib/site";
 
 export default function InterestSection() {
   const [form, setForm] = useState({
@@ -40,7 +41,7 @@ export default function InterestSection() {
           <img
             alt="Exprimez votre intérêt"
             className="absolute inset-0 h-full w-full object-cover"
-            src="https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
+            src={`${import.meta.env.BASE_URL}el-azzali/atrium-02.jpeg`}
           />
           <div className="absolute inset-0 bg-background/70" />
           <div className="absolute inset-y-0 left-0 w-[18%] border-r border-white/10 bg-gradient-to-r from-black/80 via-black/45 to-transparent" />
@@ -50,7 +51,7 @@ export default function InterestSection() {
           <div className="relative z-10 grid gap-10 px-6 py-12 lg:grid-cols-[0.8fr_1.2fr] lg:px-12 lg:py-14">
             <div className="flex flex-col justify-center">
               <p className="mb-4 text-xs uppercase tracking-[0.35em] text-primary">
-                Prenons contact
+                {siteInfo.promoter}
               </p>
               <h2 className="hidden whitespace-pre-line font-serif text-5xl font-bold leading-[0.95] text-white lg:block">
                 EXPRIMEZ{"\n"}VOTRE INTÉRÊT

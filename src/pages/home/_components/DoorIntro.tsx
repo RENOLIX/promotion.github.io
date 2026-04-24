@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { siteInfo } from "../../../lib/site";
 
 export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState<"doors" | "zoom" | "done">("doors");
 
   useEffect(() => {
-    const t1 = window.setTimeout(() => setPhase("zoom"), 1650);
+    const t1 = window.setTimeout(() => setPhase("zoom"), 1700);
     const t2 = window.setTimeout(() => {
       setPhase("done");
       onComplete();
-    }, 3800);
+    }, 4200);
 
     return () => {
       window.clearTimeout(t1);
@@ -26,7 +27,7 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
         animate={phase === "zoom" ? { opacity: 0 } : { opacity: 1 }}
         className="fixed inset-0 z-[100] flex"
         initial={{ opacity: 1 }}
-        transition={phase === "zoom" ? { duration: 1.15, delay: 1, ease: "easeInOut" } : {}}
+        transition={phase === "zoom" ? { duration: 1.2, delay: 1.15, ease: "easeInOut" } : {}}
       >
         <motion.div
           animate={phase !== "doors" ? { x: "-100%" } : { x: 0 }}
@@ -47,15 +48,15 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
             ))}
           </div>
           <div className="absolute right-3 top-1/2 h-16 w-1 -translate-y-1/2 rounded-full bg-gradient-to-b from-primary/60 via-primary to-primary/60" />
-          <div className="absolute inset-y-0 left-0 right-8 flex items-center justify-center md:right-10">
+          <div className="absolute inset-y-0 left-0 right-10 flex items-center justify-center md:right-14">
             <motion.div
               animate={{ opacity: 1 }}
               className="text-center"
               initial={{ opacity: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              <p className="font-serif text-xl font-semibold tracking-[0.28em] text-primary md:text-4xl md:tracking-[0.35em]">
-                ALGER
+              <p className="font-serif text-lg font-semibold tracking-[0.3em] text-primary md:text-3xl md:tracking-[0.36em]">
+                EL
               </p>
             </motion.div>
           </div>
@@ -80,15 +81,15 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
             ))}
           </div>
           <div className="absolute left-3 top-1/2 h-16 w-1 -translate-y-1/2 rounded-full bg-gradient-to-b from-primary/60 via-primary to-primary/60" />
-          <div className="absolute inset-y-0 left-8 right-0 flex items-center justify-center md:left-10">
+          <div className="absolute inset-y-0 left-10 right-0 flex items-center justify-center md:left-14">
             <motion.div
               animate={{ opacity: 1 }}
               className="text-center"
               initial={{ opacity: 0 }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              <p className="font-serif text-xl font-semibold tracking-[0.22em] text-primary md:text-4xl md:tracking-[0.3em]">
-                PREMIUM
+              <p className="font-serif text-lg font-semibold tracking-[0.14em] text-primary md:text-3xl md:tracking-[0.22em]">
+                AZZALI
               </p>
             </motion.div>
           </div>
@@ -103,9 +104,9 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
           transition={{ duration: 2.4, ease: "easeOut" }}
         >
           <img
-            alt="Appartement de luxe"
+            alt={siteInfo.promoter}
             className="h-full w-full object-cover"
-            src="https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
+            src={`${import.meta.env.BASE_URL}el-azzali/door-intro.jpeg`}
           />
           <div className="absolute inset-0 bg-background/60" />
         </motion.div>

@@ -1,31 +1,31 @@
 import type { ReactNode } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { Building2, MapPin, ShieldCheck, Sparkles } from "lucide-react";
+import { Building2, Dumbbell, MapPin, ShieldCheck } from "lucide-react";
 import { siteInfo } from "../../lib/site";
 
 const values = [
   {
-    icon: Sparkles,
-    title: "Standing",
-    desc: "Une résidence pensée pour l'élégance, le confort et le raffinement dans chaque détail.",
-  },
-  {
     icon: Building2,
     title: "Architecture",
-    desc: "Des espaces spacieux, une écriture contemporaine et des prestations haut de gamme.",
+    desc: "Une residence R+11 avec attique, facade contemporaine, atrium central et lecture premium des espaces communs.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Securite",
+    desc: "Videosurveillance, reseau anti-incendie, box repartis et circulation verticale pensee des le parking.",
+  },
+  {
+    icon: Dumbbell,
+    title: "Bien-etre",
+    desc: "Salle de sport, espace douche et sauna, plus un dernier etage panoramique avec duplex piscine.",
   },
   {
     icon: MapPin,
     title: "Adresse",
-    desc: "Saïd Hamdine, un emplacement stratégique connecté aux pôles essentiels d'Alger.",
+    desc: "Lotissement Belda a Draria, dans un secteur residentiel calme relie aux axes routiers et commodites.",
   },
-  {
-    icon: ShieldCheck,
-    title: "Service",
-    desc: "Gestion de copropriété, sécurité 24/24 et accompagnement signé AMK Hebbache Immobilier.",
-  },
-];
+] as const;
 
 function AnimSection({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   const ref = useRef(null);
@@ -48,15 +48,15 @@ export default function AProposPage() {
     <div className="min-h-screen bg-background pt-20">
       <div className="relative h-64 overflow-hidden">
         <img
-          alt="À propos"
+          alt={siteInfo.promoter}
           className="h-full w-full object-cover"
-          src="https://images.unsplash.com/photo-1604107050756-b5ac1578b0b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
+          src={`${import.meta.env.BASE_URL}el-azzali/facade-01.jpeg`}
         />
         <div className="absolute inset-0 bg-background/70" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div className="mb-3 flex items-center gap-3">
             <div className="h-px w-8 bg-primary" />
-            <span className="text-xs uppercase tracking-[0.35em] text-primary">Notre Histoire</span>
+            <span className="text-xs uppercase tracking-[0.35em] text-primary">La signature</span>
             <div className="h-px w-8 bg-primary" />
           </div>
           <h1 className="text-center font-serif text-4xl font-bold text-foreground md:text-6xl">
@@ -77,36 +77,28 @@ export default function AProposPage() {
             <h2 className="mb-6 font-serif text-4xl font-bold text-foreground">
               {siteInfo.residence}
               <br />
-              <span className="italic text-primary">à Saïd Hamdine</span>
+              <span className="italic text-primary">à Draria</span>
             </h2>
-            <p className="mb-4 leading-relaxed text-muted-foreground">
-              {siteInfo.promoter}, fondée par {siteInfo.founder}, occupe une position
-              prééminente dans la promotion immobilière à Alger avec plus de 30 ans
-              d'expérience et plusieurs réalisations prestigieuses.
-            </p>
-            <p className="mb-4 leading-relaxed text-muted-foreground">
-              Avec {siteInfo.residence}, le promoteur signe une résidence haut standing de{" "}
-              {siteInfo.apartments}, déclinés en {siteInfo.typologies}, au cœur d'un quartier
-              recherché pour son accessibilité et son calme.
-            </p>
+            <p className="mb-4 leading-relaxed text-muted-foreground">{siteInfo.description}</p>
+            <p className="mb-4 leading-relaxed text-muted-foreground">{siteInfo.longDescription}</p>
             <p className="leading-relaxed text-muted-foreground">
-              Chaque espace a été conçu pour offrir une vie luxueuse et contemporaine, avec un
-              niveau de finition premium, des équipements modernes et une vraie qualité
-              résidentielle au quotidien.
+              Le dernier étage en attique offre des espaces extérieurs généreux et une vue
+              panoramique sur la commune de Draria, dans une résidence pensée pour un quotidien
+              résidentiel premium et durable.
             </p>
           </AnimSection>
 
           <AnimSection delay={0.2}>
             <div className="relative">
               <img
-                alt="Résidence La Renaissance"
+                alt="Signature EL AZZALI"
                 className="aspect-[4/3] w-full object-cover"
-                src="https://images.unsplash.com/photo-1604107050756-b5ac1578b0b3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=900"
+                src={`${import.meta.env.BASE_URL}el-azzali/logo-wall.jpeg`}
               />
               <div className="absolute -bottom-6 -right-6 hidden border border-primary bg-card p-6 md:block">
-                <p className="font-serif text-4xl font-bold text-primary">30+</p>
+                <p className="font-serif text-4xl font-bold text-primary">R+11</p>
                 <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
-                  Ans d'expertise
+                  Architecture moderne
                 </p>
               </div>
             </div>
@@ -120,7 +112,7 @@ export default function AProposPage() {
               <span className="text-xs uppercase tracking-[0.35em] text-primary">ADN</span>
               <div className="h-px w-8 bg-primary" />
             </div>
-            <h2 className="font-serif text-4xl font-bold text-foreground">Nos Valeurs</h2>
+            <h2 className="font-serif text-4xl font-bold text-foreground">Nos Repères</h2>
           </div>
         </AnimSection>
 
@@ -140,7 +132,7 @@ export default function AProposPage() {
           <div className="mb-14 text-center">
             <div className="mb-4 flex items-center justify-center gap-3">
               <div className="h-px w-8 bg-primary" />
-              <span className="text-xs uppercase tracking-[0.35em] text-primary">Repères</span>
+              <span className="text-xs uppercase tracking-[0.35em] text-primary">En chiffres</span>
               <div className="h-px w-8 bg-primary" />
             </div>
             <h2 className="font-serif text-4xl font-bold text-foreground">La Promotion en Chiffres</h2>
@@ -149,10 +141,10 @@ export default function AProposPage() {
 
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {[
-            { value: "28", label: "Appartements" },
-            { value: "F4/F5", label: "Typologies principales" },
-            { value: "161 m²", label: "Surface de départ" },
-            { value: "24/24", label: "Sécurité et gestion" },
+            { value: "R+11", label: "Architecture" },
+            { value: "F2 à F6", label: "Typologies" },
+            { value: "02", label: "Parkings sous-sol" },
+            { value: "Attique", label: "Dernier niveau panoramique" },
           ].map((item, index) => (
             <AnimSection key={item.label} delay={index * 0.1}>
               <div className="border border-border bg-card p-8 text-center">
@@ -169,10 +161,12 @@ export default function AProposPage() {
           <div className="mt-20 border border-border bg-card p-8">
             <div className="mb-8 flex items-center gap-3">
               <div className="h-px w-8 bg-primary" />
-              <span className="text-xs uppercase tracking-[0.35em] text-primary">Prestations</span>
+              <span className="text-xs uppercase tracking-[0.35em] text-primary">
+                Prestations clés
+              </span>
             </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {siteInfo.features.map((feature) => (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {[...siteInfo.interiorFeatures, ...siteInfo.lifestyleFeatures].map((feature) => (
                 <div
                   key={feature}
                   className="border border-border/80 bg-background/50 px-4 py-4 text-sm text-muted-foreground"

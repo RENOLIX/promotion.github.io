@@ -1,8 +1,10 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "motion/react";
-import { CheckCircle, Mail, MapPin, Phone, Send } from "lucide-react";
+import { CheckCircle, Mail, MapPin, Send, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { siteInfo } from "../../lib/site";
+
+const contactIcons = [MapPin, ShieldCheck, MapPin, Mail] as const;
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -39,7 +41,7 @@ export default function ContactPage() {
         <img
           alt="Contact"
           className="h-full w-full object-cover"
-          src="https://images.unsplash.com/photo-1588142842388-9844c5814bbc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1920"
+          src={`${import.meta.env.BASE_URL}el-azzali/lobby-01.jpeg`}
         />
         <div className="absolute inset-0 bg-background/70" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -61,57 +63,42 @@ export default function ContactPage() {
           <div className="space-y-8 lg:col-span-2">
             <div>
               <h2 className="mb-2 font-serif text-2xl font-bold text-foreground">
-                Une équipe vous répond
+                Une adresse à découvrir
               </h2>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Contactez {siteInfo.promoter} pour découvrir {siteInfo.residence}, connaître les
-                disponibilités et être accompagné dans votre projet d'acquisition.
+                Contactez {siteInfo.promoter} pour découvrir la promotion, connaître les
+                disponibilités et planifier une visite sur rendez-vous à Draria.
               </p>
             </div>
 
             <div className="space-y-5">
-              {[
-                {
-                  icon: MapPin,
-                  title: "Adresse",
-                  info: siteInfo.fullAddress,
-                },
-                {
-                  icon: Phone,
-                  title: "Téléphone",
-                  info: siteInfo.phones.join("\n"),
-                },
-                {
-                  icon: Mail,
-                  title: "Email",
-                  info: siteInfo.email,
-                },
-                {
-                  icon: MapPin,
-                  title: "La promotion",
-                  info: `${siteInfo.residence}\n${siteInfo.location}`,
-                },
-              ].map(({ icon: Icon, title, info }) => (
-                <div key={title} className="flex items-start gap-4">
-                  <div className="flex size-9 shrink-0 items-center justify-center border border-primary/50">
-                    <Icon className="text-primary" size={14} />
+              {siteInfo.contactFacts.map((item, index) => {
+                const Icon = contactIcons[index];
+
+                return (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <div className="flex size-9 shrink-0 items-center justify-center border border-primary/50">
+                      <Icon className="text-primary" size={14} />
+                    </div>
+                    <div>
+                      <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-foreground">
+                        {item.title}
+                      </p>
+                      <p className="whitespace-pre-line text-sm text-muted-foreground">
+                        {item.value}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-foreground">
-                      {title}
-                    </p>
-                    <p className="whitespace-pre-line text-sm text-muted-foreground">{info}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="relative h-48 overflow-hidden border border-border">
               <iframe
                 className="h-full w-full grayscale"
                 loading="lazy"
-                src="https://maps.google.com/maps?q=Campagne%20Semmar%20Residence%20El%20Djenane%20Tixeraine%20Birkhadem%20Alger&t=&z=14&ie=UTF8&iwloc=&output=embed"
-                title="Localisation AMK Hebbache Immobilier"
+                src="https://maps.google.com/maps?q=Draria%20Alger&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                title="Localisation EL AZZALI real estate"
               />
             </div>
           </div>
@@ -128,8 +115,8 @@ export default function ContactPage() {
                   Demande envoyée
                 </h3>
                 <p className="max-w-sm text-muted-foreground">
-                  Merci pour votre message. Un conseiller AMK Hebbache Immobilier vous
-                  recontactera rapidement.
+                  Merci pour votre message. L'équipe EL AZZALI real estate vous recontactera
+                  rapidement pour organiser la suite.
                 </p>
                 <button
                   className="mt-8 cursor-pointer border border-border px-6 py-3 text-sm uppercase tracking-widest text-muted-foreground transition-colors hover:border-primary hover:text-primary"

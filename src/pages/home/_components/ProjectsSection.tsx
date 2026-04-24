@@ -1,35 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Images } from "lucide-react";
 import { useMobile } from "../../../hooks/use-mobile";
-
-const lifestyleCards = [
-  {
-    label: "CUISINE",
-    image:
-      "https://images.unsplash.com/photo-1757439402127-b786187f9bc2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
-  },
-  {
-    label: "SÉJOUR",
-    image:
-      "https://images.unsplash.com/photo-1758548157747-285c7012db5b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-  },
-  {
-    label: "SUITE",
-    image:
-      "https://images.unsplash.com/photo-1651132205872-091b35e72b15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
-  },
-  {
-    label: "PISCINE",
-    image:
-      "https://images.unsplash.com/photo-1758448617677-2f8bebc56d9e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=800",
-  },
-  {
-    label: "SALLE D'EAU",
-    image:
-      "https://images.unsplash.com/photo-1776348065068-476a708a2d3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=600",
-  },
-];
+import { lifestyleCollections } from "../../../lib/site";
 
 function getOffset(index: number, activeIndex: number, total: number) {
   let offset = index - activeIndex;
@@ -42,31 +15,47 @@ function getOffset(index: number, activeIndex: number, total: number) {
 }
 
 export default function ProjectsSection() {
-  const [activeIndex, setActiveIndex] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [photoIndex, setPhotoIndex] = useState(0);
   const isMobile = useMobile();
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % lifestyleCards.length);
-    }, 4800);
+      setActiveIndex((prev) => (prev + 1) % lifestyleCollections.length);
+    }, 6500);
 
     return () => window.clearInterval(interval);
   }, []);
 
-  const activeItem = lifestyleCards[activeIndex];
+  useEffect(() => {
+    setPhotoIndex(0);
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const activeCollection = lifestyleCollections[activeIndex];
+
+    const interval = window.setInterval(() => {
+      setPhotoIndex((prev) => (prev + 1) % activeCollection.images.length);
+    }, 2800);
+
+    return () => window.clearInterval(interval);
+  }, [activeIndex]);
+
+  const activeItem = lifestyleCollections[activeIndex];
+  const activeImage = activeItem.images[photoIndex];
 
   const cards = useMemo(
     () =>
-      lifestyleCards.map((item, index) => ({
+      lifestyleCollections.map((item, index) => ({
         ...item,
-        offset: getOffset(index, activeIndex, lifestyleCards.length),
+        offset: getOffset(index, activeIndex, lifestyleCollections.length),
       })),
     [activeIndex],
   );
 
-  const goNext = () => setActiveIndex((prev) => (prev + 1) % lifestyleCards.length);
+  const goNext = () => setActiveIndex((prev) => (prev + 1) % lifestyleCollections.length);
   const goPrev = () =>
-    setActiveIndex((prev) => (prev - 1 + lifestyleCards.length) % lifestyleCards.length);
+    setActiveIndex((prev) => (prev - 1 + lifestyleCollections.length) % lifestyleCollections.length);
 
   return (
     <section className="bg-background py-28">
@@ -83,7 +72,7 @@ export default function ProjectsSection() {
             <div className="relative overflow-hidden rounded-[30px] border border-white/12 bg-card">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={activeItem.label}
+                  key={`${activeItem.label}-${photoIndex}`}
                   animate={{ opacity: 1, x: 0 }}
                   className="relative"
                   exit={{ opacity: 0, x: -40 }}
@@ -92,17 +81,38 @@ export default function ProjectsSection() {
                 >
                   <img
                     alt={activeItem.label}
-                    className="h-[460px] w-full object-cover"
-                    src={activeItem.image}
+                    className="h-[500px] w-full object-cover"
+                    src={activeImage}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/92 via-background/18 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <span className="text-xs uppercase tracking-[0.34em] text-primary">
-                      Un style de vie
+                      {activeItem.kicker}
                     </span>
                     <h3 className="mt-3 font-serif text-4xl font-bold text-white">
                       {activeItem.label}
                     </h3>
+
+                    <div className="mt-5 grid grid-cols-4 gap-2">
+                      {activeItem.images.map((image, index) => (
+                        <button
+                          key={image}
+                          className={`overflow-hidden rounded-2xl border ${
+                            photoIndex === index
+                              ? "border-primary"
+                              : "border-white/12 hover:border-primary/60"
+                          }`}
+                          onClick={() => setPhotoIndex(index)}
+                          type="button"
+                        >
+                          <img
+                            alt={`${activeItem.label} ${index + 1}`}
+                            className="h-16 w-full object-cover"
+                            src={image}
+                          />
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -118,7 +128,7 @@ export default function ProjectsSection() {
               </button>
 
               <div className="flex items-center gap-2">
-                {lifestyleCards.map((item, index) => (
+                {lifestyleCollections.map((item, index) => (
                   <button
                     key={item.label}
                     aria-label={item.label}
@@ -141,48 +151,97 @@ export default function ProjectsSection() {
             </div>
           </div>
         ) : (
-          <div className="relative mx-auto h-[600px] max-w-6xl overflow-hidden">
+          <div className="relative mx-auto h-[660px] max-w-6xl overflow-hidden">
             {cards.map((item, index) => {
               const isCenter = item.offset === 0;
               const isSide = Math.abs(item.offset) === 1;
               const hidden = Math.abs(item.offset) > 1;
+              const displayedImage = isCenter ? item.images[photoIndex] : item.images[0];
 
               const transform =
                 item.offset === 0
                   ? "translate(-50%, 0) scale(1)"
                   : item.offset === -1
-                    ? "translate(calc(-50% - 24rem), 2.2rem) scale(0.84)"
+                    ? "translate(calc(-50% - 25rem), 2.6rem) scale(0.84)"
                     : item.offset === 1
-                      ? "translate(calc(-50% + 24rem), 2.2rem) scale(0.84)"
+                      ? "translate(calc(-50% + 25rem), 2.6rem) scale(0.84)"
                       : item.offset < 0
-                        ? "translate(calc(-50% - 40rem), 4rem) scale(0.72)"
-                        : "translate(calc(-50% + 40rem), 4rem) scale(0.72)";
+                        ? "translate(calc(-50% - 42rem), 4rem) scale(0.72)"
+                        : "translate(calc(-50% + 42rem), 4rem) scale(0.72)";
 
               return (
-                <button
+                <motion.div
                   key={item.label}
-                  className="absolute left-1/2 top-0 h-[520px] w-[430px] overflow-hidden rounded-[32px] border border-white/12 bg-card text-left transition-all duration-700 ease-out"
+                  animate={{
+                    opacity: hidden ? 0 : isCenter ? 1 : 0.6,
+                    filter: isCenter ? "blur(0px)" : isSide ? "blur(2px)" : "blur(8px)",
+                  }}
+                  className="absolute left-1/2 top-0 h-[560px] w-[440px] overflow-hidden rounded-[32px] border border-white/12 bg-card text-left transition-all duration-700 ease-out"
+                  initial={false}
                   onClick={() => setActiveIndex(index)}
                   style={{
                     transform,
-                    opacity: hidden ? 0 : isCenter ? 1 : 0.55,
-                    filter: isCenter ? "blur(0px)" : isSide ? "blur(2px)" : "blur(8px)",
                     zIndex: isCenter ? 30 : isSide ? 20 : 10,
                     pointerEvents: hidden ? "none" : "auto",
                   }}
-                  type="button"
                 >
-                  <img alt={item.label} className="h-full w-full object-cover" src={item.image} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/10 to-transparent" />
+                  <AnimatePresence mode={isCenter ? "wait" : "sync"}>
+                    <motion.img
+                      key={`${item.label}-${displayedImage}`}
+                      alt={item.label}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="h-full w-full object-cover"
+                      exit={isCenter ? { opacity: 0 } : undefined}
+                      initial={isCenter ? { opacity: 0, scale: 1.03 } : false}
+                      src={displayedImage}
+                      transition={{ duration: 0.45, ease: "easeOut" }}
+                    />
+                  </AnimatePresence>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/12 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-8">
                     <span className="text-xs uppercase tracking-[0.34em] text-primary">
-                      Intérieur signature
+                      {item.kicker}
                     </span>
-                    <h3 className="mt-4 font-serif text-5xl font-bold text-white">
-                      {item.label}
-                    </h3>
+                    <h3 className="mt-4 font-serif text-5xl font-bold text-white">{item.label}</h3>
+
+                    {isCenter ? (
+                      <div className="mt-5 flex items-center gap-3">
+                        <div className="flex flex-1 gap-2">
+                          {item.images.map((image, imageIndex) => (
+                            <button
+                              key={image}
+                              className={`overflow-hidden rounded-2xl border ${
+                                photoIndex === imageIndex
+                                  ? "border-primary"
+                                  : "border-white/12 hover:border-primary/60"
+                              }`}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                setPhotoIndex(imageIndex);
+                              }}
+                              type="button"
+                            >
+                              <img
+                                alt={`${item.label} ${imageIndex + 1}`}
+                                className="h-16 w-20 object-cover"
+                                src={image}
+                              />
+                            </button>
+                          ))}
+                        </div>
+                        <div className="flex items-center gap-2 rounded-full border border-white/12 bg-black/25 px-3 py-2 text-xs uppercase tracking-[0.24em] text-white/70">
+                          <Images size={14} />
+                          {item.images.length} vues
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="mt-4 text-xs uppercase tracking-[0.28em] text-white/65">
+                        {item.images.length} photos
+                      </p>
+                    )}
                   </div>
-                </button>
+                </motion.div>
               );
             })}
 
@@ -199,7 +258,7 @@ export default function ProjectsSection() {
               </button>
 
               <div className="flex items-center gap-3">
-                {lifestyleCards.map((item, index) => (
+                {lifestyleCollections.map((item, index) => (
                   <button
                     key={item.label}
                     className={`pointer-events-auto text-xs uppercase tracking-[0.28em] transition-colors ${

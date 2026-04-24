@@ -23,15 +23,17 @@ export default function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/75 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Link className="flex items-center gap-4" to="/">
-          <span className="flex size-11 items-center justify-center border border-primary/50 bg-secondary font-serif text-lg font-bold text-primary">
-            LR
-          </span>
+          <img
+            alt={siteInfo.promoter}
+            className="h-12 w-12 object-contain"
+            src={siteInfo.logoUrl}
+          />
           <div className="hidden sm:block">
             <p className="font-serif text-lg font-bold text-foreground">
-              {siteInfo.residenceShort}
+              {siteInfo.promoterShort}
             </p>
             <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-              {siteInfo.promoter}
+              {siteInfo.location}
             </p>
           </div>
         </Link>
