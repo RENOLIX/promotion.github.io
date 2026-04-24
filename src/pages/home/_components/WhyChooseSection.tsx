@@ -6,16 +6,6 @@ const icons = [Smartphone, ShieldCheck, Dumbbell] as const;
 export default function WhyChooseSection() {
   return (
     <section className="relative overflow-hidden bg-background py-32">
-      <div className="absolute inset-x-0 top-0 h-32">
-        <div className="absolute -top-16 left-[-10%] h-28 w-[60%] rounded-b-[100%] bg-[#5f6468]" />
-        <div className="absolute -top-20 right-[-12%] h-32 w-[58%] rounded-b-[100%] bg-[#676c70]" />
-      </div>
-
-      <div className="absolute inset-x-0 bottom-0 h-32">
-        <div className="absolute -bottom-16 left-[-10%] h-28 w-[58%] rounded-t-[100%] bg-[#5f6468]" />
-        <div className="absolute -bottom-20 right-[-12%] h-32 w-[62%] rounded-t-[100%] bg-[#676c70]" />
-      </div>
-
       <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[42px] bg-[linear-gradient(180deg,#676c70_0%,#54595e_100%)] px-6 py-16 shadow-[0_28px_70px_rgba(61,49,33,0.18)] lg:px-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(247,198,106,0.13),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.08),transparent_22%)]" />
 
