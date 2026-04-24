@@ -71,16 +71,17 @@ export default function AProposPage() {
           className="h-full w-full object-cover"
           src={`${import.meta.env.BASE_URL}el-azzali/facade-01.jpeg`}
         />
-        <div className="absolute inset-0 bg-background/55" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="mb-3 flex items-center gap-3">
-            <div className="h-px w-8 bg-primary" />
-            <span className="text-xs uppercase tracking-[0.35em] text-primary">La signature</span>
-            <div className="h-px w-8 bg-primary" />
+        <div className="absolute inset-0 flex items-center justify-center px-6">
+          <div className="rounded-[28px] bg-black/42 px-8 py-6 text-center shadow-[0_24px_60px_rgba(0,0,0,0.34)] backdrop-blur-[3px]">
+            <div className="mb-3 flex items-center justify-center gap-3">
+              <div className="h-px w-8 bg-primary" />
+              <span className="text-xs uppercase tracking-[0.35em] text-primary">La signature</span>
+              <div className="h-px w-8 bg-primary" />
+            </div>
+            <h1 className="text-center font-serif text-4xl font-bold text-white md:text-6xl">
+              A propos
+            </h1>
           </div>
-          <h1 className="text-center font-serif text-4xl font-bold text-foreground md:text-6xl">
-            A propos
-          </h1>
         </div>
       </div>
 

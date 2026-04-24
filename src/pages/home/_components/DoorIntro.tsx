@@ -108,7 +108,6 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
             className="h-full w-full object-cover"
             src={`${import.meta.env.BASE_URL}el-azzali/door-intro.jpeg`}
           />
-          <div className="absolute inset-0 bg-background/60" />
         </motion.div>
       </motion.div>
     </AnimatePresence>
