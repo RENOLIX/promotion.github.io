@@ -1,8 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight, Images } from "lucide-react";
 import { useMobile } from "../../../hooks/use-mobile";
 import { lifestyleCollections } from "../../../lib/site";
+
+const COLLECTION_INTERVAL = 9500;
+const PHOTO_INTERVAL = 4600;
+const RESUME_DELAY = 6000;
 
 function getOffset(index: number, activeIndex: number, total: number) {
   let offset = index - activeIndex;
@@ -17,29 +21,54 @@ function getOffset(index: number, activeIndex: number, total: number) {
 export default function ProjectsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [isManualMode, setIsManualMode] = useState(false);
+  const resumeTimeoutRef = useRef<number | null>(null);
   const isMobile = useMobile();
 
+  const scheduleAutoResume = useCallback(() => {
+    setIsManualMode(true);
+
+    if (resumeTimeoutRef.current) {
+      window.clearTimeout(resumeTimeoutRef.current);
+    }
+
+    resumeTimeoutRef.current = window.setTimeout(() => {
+      setIsManualMode(false);
+    }, RESUME_DELAY);
+  }, []);
+
   useEffect(() => {
+    return () => {
+      if (resumeTimeoutRef.current) {
+        window.clearTimeout(resumeTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isManualMode) return;
+
     const interval = window.setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % lifestyleCollections.length);
-    }, 6500);
+    }, COLLECTION_INTERVAL);
 
     return () => window.clearInterval(interval);
-  }, []);
+  }, [isManualMode]);
 
   useEffect(() => {
     setPhotoIndex(0);
   }, [activeIndex]);
 
   useEffect(() => {
-    const activeCollection = lifestyleCollections[activeIndex];
+    if (isManualMode) return;
 
+    const activeCollection = lifestyleCollections[activeIndex];
     const interval = window.setInterval(() => {
       setPhotoIndex((prev) => (prev + 1) % activeCollection.images.length);
-    }, 2800);
+    }, PHOTO_INTERVAL);
 
     return () => window.clearInterval(interval);
-  }, [activeIndex]);
+  }, [activeIndex, isManualMode]);
 
   const activeItem = lifestyleCollections[activeIndex];
   const activeImage = activeItem.images[photoIndex];
@@ -53,9 +82,25 @@ export default function ProjectsSection() {
     [activeIndex],
   );
 
-  const goNext = () => setActiveIndex((prev) => (prev + 1) % lifestyleCollections.length);
-  const goPrev = () =>
+  const goNext = () => {
+    scheduleAutoResume();
+    setActiveIndex((prev) => (prev + 1) % lifestyleCollections.length);
+  };
+
+  const goPrev = () => {
+    scheduleAutoResume();
     setActiveIndex((prev) => (prev - 1 + lifestyleCollections.length) % lifestyleCollections.length);
+  };
+
+  const selectCollection = (index: number) => {
+    scheduleAutoResume();
+    setActiveIndex(index);
+  };
+
+  const selectPhoto = (index: number) => {
+    scheduleAutoResume();
+    setPhotoIndex(index);
+  };
 
   return (
     <section className="bg-background py-28">
@@ -68,8 +113,8 @@ export default function ProjectsSection() {
         </div>
 
         {isMobile ? (
-          <div className="mx-auto max-w-xl">
-            <div className="relative overflow-hidden rounded-[30px] border border-white/12 bg-card">
+          <div className="mx-auto max-w-xl" onPointerDownCapture={scheduleAutoResume}>
+            <div className="relative overflow-hidden rounded-[30px] border border-border bg-card shadow-[0_24px_60px_rgba(109,84,44,0.12)]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeItem.label}-${photoIndex}`}
@@ -77,14 +122,14 @@ export default function ProjectsSection() {
                   className="relative"
                   exit={{ opacity: 0, x: -40 }}
                   initial={{ opacity: 0, x: 40 }}
-                  transition={{ duration: 0.45, ease: "easeOut" }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                 >
                   <img
                     alt={activeItem.label}
                     className="h-[500px] w-full object-cover"
                     src={activeImage}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/92 via-background/18 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(46,34,20,0.92)] via-[rgba(46,34,20,0.14)] to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <span className="text-xs uppercase tracking-[0.34em] text-primary">
                       {activeItem.kicker}
@@ -100,9 +145,9 @@ export default function ProjectsSection() {
                           className={`overflow-hidden rounded-2xl border ${
                             photoIndex === index
                               ? "border-primary"
-                              : "border-white/12 hover:border-primary/60"
+                              : "border-white/20 hover:border-primary/60"
                           }`}
-                          onClick={() => setPhotoIndex(index)}
+                          onClick={() => selectPhoto(index)}
                           type="button"
                         >
                           <img
@@ -120,7 +165,7 @@ export default function ProjectsSection() {
 
             <div className="mt-6 flex items-center justify-between">
               <button
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
                 onClick={goPrev}
                 type="button"
               >
@@ -133,16 +178,16 @@ export default function ProjectsSection() {
                     key={item.label}
                     aria-label={item.label}
                     className={`h-2.5 rounded-full transition-all ${
-                      activeIndex === index ? "w-10 bg-primary" : "w-2.5 bg-white/25"
+                      activeIndex === index ? "w-10 bg-primary" : "w-2.5 bg-primary/25"
                     }`}
-                    onClick={() => setActiveIndex(index)}
+                    onClick={() => selectCollection(index)}
                     type="button"
                   />
                 ))}
               </div>
 
               <button
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
                 onClick={goNext}
                 type="button"
               >
@@ -151,7 +196,10 @@ export default function ProjectsSection() {
             </div>
           </div>
         ) : (
-          <div className="relative mx-auto h-[660px] max-w-6xl overflow-hidden">
+          <div
+            className="relative mx-auto h-[660px] max-w-6xl overflow-hidden"
+            onPointerDownCapture={scheduleAutoResume}
+          >
             {cards.map((item, index) => {
               const isCenter = item.offset === 0;
               const isSide = Math.abs(item.offset) === 1;
@@ -176,9 +224,9 @@ export default function ProjectsSection() {
                     opacity: hidden ? 0 : isCenter ? 1 : 0.6,
                     filter: isCenter ? "blur(0px)" : isSide ? "blur(2px)" : "blur(8px)",
                   }}
-                  className="absolute left-1/2 top-0 h-[560px] w-[440px] overflow-hidden rounded-[32px] border border-white/12 bg-card text-left transition-all duration-700 ease-out"
+                  className="absolute left-1/2 top-0 h-[560px] w-[440px] overflow-hidden rounded-[32px] border border-border bg-card text-left shadow-[0_24px_60px_rgba(109,84,44,0.14)] transition-all duration-700 ease-out"
                   initial={false}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => selectCollection(index)}
                   style={{
                     transform,
                     zIndex: isCenter ? 30 : isSide ? 20 : 10,
@@ -194,11 +242,11 @@ export default function ProjectsSection() {
                       exit={isCenter ? { opacity: 0 } : undefined}
                       initial={isCenter ? { opacity: 0, scale: 1.03 } : false}
                       src={displayedImage}
-                      transition={{ duration: 0.45, ease: "easeOut" }}
+                      transition={{ duration: 0.55, ease: "easeOut" }}
                     />
                   </AnimatePresence>
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/12 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(46,34,20,0.95)] via-[rgba(46,34,20,0.12)] to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-8">
                     <span className="text-xs uppercase tracking-[0.34em] text-primary">
                       {item.kicker}
@@ -214,11 +262,11 @@ export default function ProjectsSection() {
                               className={`overflow-hidden rounded-2xl border ${
                                 photoIndex === imageIndex
                                   ? "border-primary"
-                                  : "border-white/12 hover:border-primary/60"
+                                  : "border-white/20 hover:border-primary/60"
                               }`}
                               onClick={(event) => {
                                 event.stopPropagation();
-                                setPhotoIndex(imageIndex);
+                                selectPhoto(imageIndex);
                               }}
                               type="button"
                             >
@@ -230,13 +278,13 @@ export default function ProjectsSection() {
                             </button>
                           ))}
                         </div>
-                        <div className="flex items-center gap-2 rounded-full border border-white/12 bg-black/25 px-3 py-2 text-xs uppercase tracking-[0.24em] text-white/70">
+                        <div className="flex items-center gap-2 rounded-full border border-white/15 bg-black/25 px-3 py-2 text-xs uppercase tracking-[0.24em] text-white/78">
                           <Images size={14} />
                           {item.images.length} vues
                         </div>
                       </div>
                     ) : (
-                      <p className="mt-4 text-xs uppercase tracking-[0.28em] text-white/65">
+                      <p className="mt-4 text-xs uppercase tracking-[0.28em] text-white/70">
                         {item.images.length} photos
                       </p>
                     )}
@@ -250,7 +298,7 @@ export default function ProjectsSection() {
 
             <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 items-center gap-4">
               <button
-                className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
                 onClick={goPrev}
                 type="button"
               >
@@ -262,9 +310,9 @@ export default function ProjectsSection() {
                   <button
                     key={item.label}
                     className={`pointer-events-auto text-xs uppercase tracking-[0.28em] transition-colors ${
-                      activeIndex === index ? "text-primary" : "text-white/45"
+                      activeIndex === index ? "text-primary" : "text-muted-foreground"
                     }`}
-                    onClick={() => setActiveIndex(index)}
+                    onClick={() => selectCollection(index)}
                     type="button"
                   >
                     {item.label}
@@ -273,7 +321,7 @@ export default function ProjectsSection() {
               </div>
 
               <button
-                className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white/80 transition-colors hover:border-primary hover:text-primary"
+                className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-primary hover:text-primary"
                 onClick={goNext}
                 type="button"
               >

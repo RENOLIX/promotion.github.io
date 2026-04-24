@@ -10,7 +10,7 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
     const t2 = window.setTimeout(() => {
       setPhase("done");
       onComplete();
-    }, 4200);
+    }, 5200);
 
     return () => {
       window.clearTimeout(t1);
@@ -27,7 +27,7 @@ export default function DoorIntro({ onComplete }: { onComplete: () => void }) {
         animate={phase === "zoom" ? { opacity: 0 } : { opacity: 1 }}
         className="fixed inset-0 z-[100] flex"
         initial={{ opacity: 1 }}
-        transition={phase === "zoom" ? { duration: 1.2, delay: 1.15, ease: "easeInOut" } : {}}
+        transition={phase === "zoom" ? { duration: 1.25, delay: 1.7, ease: "easeInOut" } : {}}
       >
         <motion.div
           animate={phase !== "doors" ? { x: "-100%" } : { x: 0 }}

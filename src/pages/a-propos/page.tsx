@@ -1,7 +1,17 @@
 import type { ReactNode } from "react";
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
-import { Building2, Dumbbell, MapPin, ShieldCheck } from "lucide-react";
+import {
+  AirVent,
+  ArrowUpDown,
+  Building2,
+  ChefHat,
+  Dumbbell,
+  LockKeyhole,
+  MapPin,
+  ShieldCheck,
+  Smartphone,
+} from "lucide-react";
 import { siteInfo } from "../../lib/site";
 
 const values = [
@@ -25,6 +35,15 @@ const values = [
     title: "Adresse",
     desc: "Lotissement Belda a Draria, dans un secteur residentiel calme relie aux axes routiers et commodites.",
   },
+] as const;
+
+const keyFeatures = [
+  { icon: Smartphone, label: "Systeme domotique integre" },
+  { icon: AirVent, label: "Chauffage central et climatisation centralisee" },
+  { icon: ChefHat, label: "Cuisine equipee par excellence" },
+  { icon: ArrowUpDown, label: "Fenetre et porte-fenetre a commande a distance" },
+  { icon: LockKeyhole, label: "Serrure d'entree intelligente" },
+  { icon: Dumbbell, label: "Salle de sport, douche et sauna" },
 ] as const;
 
 function AnimSection({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
@@ -52,7 +71,7 @@ export default function AProposPage() {
           className="h-full w-full object-cover"
           src={`${import.meta.env.BASE_URL}el-azzali/facade-01.jpeg`}
         />
-        <div className="absolute inset-0 bg-background/70" />
+        <div className="absolute inset-0 bg-background/55" />
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <div className="mb-3 flex items-center gap-3">
             <div className="h-px w-8 bg-primary" />
@@ -60,7 +79,7 @@ export default function AProposPage() {
             <div className="h-px w-8 bg-primary" />
           </div>
           <h1 className="text-center font-serif text-4xl font-bold text-foreground md:text-6xl">
-            À Propos
+            A propos
           </h1>
         </div>
       </div>
@@ -77,27 +96,29 @@ export default function AProposPage() {
             <h2 className="mb-6 font-serif text-4xl font-bold text-foreground">
               {siteInfo.residence}
               <br />
-              <span className="italic text-primary">à Draria</span>
+              <span className="italic text-primary">a Draria</span>
             </h2>
             <p className="mb-4 leading-relaxed text-muted-foreground">{siteInfo.description}</p>
             <p className="mb-4 leading-relaxed text-muted-foreground">{siteInfo.longDescription}</p>
             <p className="leading-relaxed text-muted-foreground">
-              Le dernier étage en attique offre des espaces extérieurs généreux et une vue
-              panoramique sur la commune de Draria, dans une résidence pensée pour un quotidien
-              résidentiel premium et durable.
+              Le dernier etage en attique offre des espaces exterieurs genereux et une vue
+              panoramique sur la commune de Draria, dans une residence pensee pour un quotidien
+              residentiel premium et durable.
             </p>
           </AnimSection>
 
           <AnimSection delay={0.2}>
-            <div className="relative">
+            <div className="relative overflow-hidden rounded-[30px] border border-border bg-card shadow-[0_24px_60px_rgba(109,84,44,0.12)]">
               <img
-                alt="Signature EL AZZALI"
+                alt="Facade EL AZZALI"
                 className="aspect-[4/3] w-full object-cover"
-                src={`${import.meta.env.BASE_URL}el-azzali/logo-wall.jpeg`}
+                src={`${import.meta.env.BASE_URL}el-azzali/hero.jpeg`}
               />
-              <div className="absolute -bottom-6 -right-6 hidden border border-primary bg-card p-6 md:block">
-                <p className="font-serif text-4xl font-bold text-primary">R+11</p>
-                <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(40,28,16,0.58)] via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-xs uppercase tracking-[0.3em] text-primary">Signature EL AZZALI</p>
+                <p className="mt-2 font-serif text-4xl font-bold text-white">R+11</p>
+                <p className="mt-1 text-xs uppercase tracking-[0.22em] text-white/76">
                   Architecture moderne
                 </p>
               </div>
@@ -112,14 +133,14 @@ export default function AProposPage() {
               <span className="text-xs uppercase tracking-[0.35em] text-primary">ADN</span>
               <div className="h-px w-8 bg-primary" />
             </div>
-            <h2 className="font-serif text-4xl font-bold text-foreground">Nos Repères</h2>
+            <h2 className="font-serif text-4xl font-bold text-foreground">Nos reperes</h2>
           </div>
         </AnimSection>
 
         <div className="mb-28 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {values.map((value, index) => (
             <AnimSection key={value.title} delay={index * 0.1}>
-              <div className="border border-border bg-card p-8 text-center transition-colors hover:border-primary/50">
+              <div className="rounded-[24px] border border-border bg-card p-8 text-center shadow-[0_20px_50px_rgba(109,84,44,0.08)] transition-colors hover:border-primary/50">
                 <value.icon className="mx-auto mb-4 text-primary" size={28} />
                 <h3 className="mb-3 font-serif text-xl font-bold text-foreground">{value.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{value.desc}</p>
@@ -135,19 +156,19 @@ export default function AProposPage() {
               <span className="text-xs uppercase tracking-[0.35em] text-primary">En chiffres</span>
               <div className="h-px w-8 bg-primary" />
             </div>
-            <h2 className="font-serif text-4xl font-bold text-foreground">La Promotion en Chiffres</h2>
+            <h2 className="font-serif text-4xl font-bold text-foreground">La promotion en chiffres</h2>
           </div>
         </AnimSection>
 
         <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
           {[
             { value: "R+11", label: "Architecture" },
-            { value: "F2 à F6", label: "Typologies" },
+            { value: "F2 a F6", label: "Typologies" },
             { value: "02", label: "Parkings sous-sol" },
             { value: "Attique", label: "Dernier niveau panoramique" },
           ].map((item, index) => (
             <AnimSection key={item.label} delay={index * 0.1}>
-              <div className="border border-border bg-card p-8 text-center">
+              <div className="rounded-[24px] border border-border bg-card p-8 text-center shadow-[0_20px_50px_rgba(109,84,44,0.08)]">
                 <p className="font-serif text-4xl font-bold text-primary">{item.value}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.28em] text-muted-foreground">
                   {item.label}
@@ -158,20 +179,21 @@ export default function AProposPage() {
         </div>
 
         <AnimSection delay={0.2}>
-          <div className="mt-20 border border-border bg-card p-8">
+          <div className="mt-20 rounded-[30px] border border-border bg-card p-8 shadow-[0_24px_60px_rgba(109,84,44,0.09)]">
             <div className="mb-8 flex items-center gap-3">
               <div className="h-px w-8 bg-primary" />
               <span className="text-xs uppercase tracking-[0.35em] text-primary">
-                Prestations clés
+                Prestations cles
               </span>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {[...siteInfo.interiorFeatures, ...siteInfo.lifestyleFeatures].map((feature) => (
+              {keyFeatures.map((feature) => (
                 <div
-                  key={feature}
-                  className="border border-border/80 bg-background/50 px-4 py-4 text-sm text-muted-foreground"
+                  key={feature.label}
+                  className="flex items-center gap-3 rounded-[22px] border border-border bg-background/80 px-4 py-4 text-sm text-muted-foreground"
                 >
-                  {feature}
+                  <feature.icon className="shrink-0 text-primary" size={18} />
+                  <span>{feature.label}</span>
                 </div>
               ))}
             </div>

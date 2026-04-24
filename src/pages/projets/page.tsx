@@ -63,7 +63,7 @@ export default function ProjetsPage() {
             <div className="h-px w-8 bg-primary" />
           </div>
           <h1 className="text-center font-serif text-4xl font-bold text-foreground md:text-6xl">
-            {siteInfo.promoterShort} • {siteInfo.residence}
+            {siteInfo.promoterShort} - {siteInfo.residence}
           </h1>
         </div>
       </div>

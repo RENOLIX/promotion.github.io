@@ -7,7 +7,7 @@ import { cn } from "../../lib/utils";
 const links = [
   { label: "Accueil", to: "/" },
   { label: "La promotion", to: "/projets" },
-  { label: "À propos", to: "/a-propos" },
+  { label: "A propos", to: "/a-propos" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -20,18 +20,16 @@ export default function SiteHeader() {
   }, [location.pathname]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/75 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/82 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <Link className="flex items-center gap-4" to="/">
           <img
             alt={siteInfo.promoter}
-            className="h-12 w-12 object-contain"
+            className="h-16 w-16 object-contain"
             src={siteInfo.logoUrl}
           />
           <div className="hidden sm:block">
-            <p className="font-serif text-lg font-bold text-foreground">
-              {siteInfo.promoterShort}
-            </p>
+            <p className="font-serif text-lg font-bold text-foreground">{siteInfo.promoterShort}</p>
             <p className="text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
               {siteInfo.location}
             </p>

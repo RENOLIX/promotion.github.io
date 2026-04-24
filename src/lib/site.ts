@@ -126,6 +126,15 @@ export const lifestyleCollections = [
     ],
   },
   {
+    label: "Chambre 2",
+    kicker: "Esprit familial",
+    images: [
+      withBase("el-azzali/family-01.jpeg"),
+      withBase("el-azzali/family-02.jpeg"),
+      withBase("el-azzali/family-03.jpeg"),
+    ],
+  },
+  {
     label: "Salle d'eau",
     kicker: "Marbre & lumiere",
     images: [
@@ -164,8 +173,8 @@ export const galleryImages = [
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    src: withBase("el-azzali/bath-02.jpeg"),
-    label: "Salle d'eau",
+    src: withBase("el-azzali/family-01.jpeg"),
+    label: "Chambre 2",
     span: "md:col-span-1 md:row-span-1",
   },
   {
