@@ -1,4 +1,13 @@
-import { ArrowRight, Building2, Dumbbell, MapPin, ShieldCheck, Waves } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  Dumbbell,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  UserRound,
+  Waves,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 import { siteInfo } from "../../lib/site";
 
@@ -50,6 +59,19 @@ export default function SiteFooter() {
               Une promotion residentielle premium pensee pour un mode de vie elegant, intelligent
               et serein a Draria.
             </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <div className="flex items-start gap-3 rounded-[22px] border border-white/10 bg-white/6 px-4 py-4 text-sm text-[#f3e8d6]">
+                <UserRound size={18} className="mt-0.5 shrink-0 text-primary" />
+                <span>Direction generale assuree par {siteInfo.directorGeneral}.</span>
+              </div>
+              <a
+                className="flex items-center gap-3 rounded-[22px] border border-white/10 bg-white/6 px-4 py-4 text-sm text-[#f3e8d6] transition-colors hover:border-primary"
+                href={`tel:${siteInfo.phoneHref}`}
+              >
+                <Phone size={18} className="shrink-0 text-primary" />
+                <span>{siteInfo.phone}</span>
+              </a>
+            </div>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -92,6 +114,7 @@ export default function SiteFooter() {
             {siteInfo.promoter} - {siteInfo.residence}
           </p>
           <p>© 2026 {siteInfo.promoter}. Tous droits reserves.</p>
+          <p>Direction generale : {siteInfo.directorGeneral}</p>
           <p>Developed by SITEMAGIQUE</p>
         </div>
       </div>

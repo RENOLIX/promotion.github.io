@@ -3,6 +3,9 @@ const withBase = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 export const siteInfo = {
   promoter: "EL AZZALI real estate",
   promoterShort: "EL AZZALI",
+  directorGeneral: "Monsieur LEBBIHI MOSTAPHA",
+  phone: "0661 11 22 28",
+  phoneHref: "0661112228",
   residence: "Lotissement Belda",
   residenceShort: "Belda",
   logoUrl: "https://i.ibb.co/60gTvkfp/Chat-GPT-Image-24-avr-2026-17-24-10.png",
@@ -54,17 +57,17 @@ export const siteInfo = {
       value: "Lotissement Belda, Draria, Alger",
     },
     {
-      title: "Cadre de vie",
-      value:
-        "Un secteur residentiel calme, preserve de l'agitation et proche des ecoles, commerces et services urbains.",
+      title: "Direction generale",
+      value: "La direction generale est assuree par Monsieur LEBBIHI MOSTAPHA.",
     },
     {
-      title: "Architecture",
-      value: "Immeuble R+11 avec attique, vues degagees et dernier niveau panoramique.",
+      title: "Telephone",
+      value: "0661 11 22 28",
     },
     {
       title: "Commercialisation",
-      value: "Visites, disponibilites et accompagnement via le formulaire de contact integre.",
+      value:
+        "Visites, disponibilites et accompagnement dans un secteur residentiel calme, proche des axes routiers et commodites.",
     },
   ],
 } as const;

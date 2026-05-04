@@ -1,10 +1,10 @@
 import { useState, type FormEvent } from "react";
 import { motion } from "motion/react";
-import { CheckCircle, Mail, MapPin, Send, ShieldCheck } from "lucide-react";
+import { Building2, CheckCircle, MapPin, Phone, Send, UserRound } from "lucide-react";
 import { toast } from "sonner";
 import { siteInfo } from "../../lib/site";
 
-const contactIcons = [MapPin, ShieldCheck, MapPin, Mail] as const;
+const contactIcons = [MapPin, UserRound, Phone, Building2] as const;
 
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
@@ -31,7 +31,7 @@ export default function ContactPage() {
 
     window.setTimeout(() => {
       setSent(true);
-      toast.success("Votre demande a bien été envoyée.");
+      toast.success("Votre demande a bien ete envoyee.");
     }, 800);
   };
 
@@ -64,11 +64,12 @@ export default function ContactPage() {
           <div className="space-y-8 lg:col-span-2">
             <div>
               <h2 className="mb-2 font-serif text-2xl font-bold text-foreground">
-                Une adresse à découvrir
+                Une adresse a decouvrir
               </h2>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Contactez {siteInfo.promoter} pour découvrir la promotion, connaître les
-                disponibilités et planifier une visite sur rendez-vous à Draria.
+                Contactez {siteInfo.promoter} pour decouvrir la promotion, connaitre les
+                disponibilites et planifier une visite sur rendez-vous a Draria. Vous pouvez aussi
+                joindre directement le {siteInfo.phone}.
               </p>
             </div>
 
@@ -113,10 +114,10 @@ export default function ContactPage() {
               >
                 <CheckCircle className="mb-6 text-primary" size={56} />
                 <h3 className="mb-3 font-serif text-2xl font-bold text-foreground">
-                  Demande envoyée
+                  Demande envoyee
                 </h3>
                 <p className="max-w-sm text-muted-foreground">
-                  Merci pour votre message. L'équipe EL AZZALI real estate vous recontactera
+                  Merci pour votre message. L'equipe EL AZZALI real estate vous recontactera
                   rapidement pour organiser la suite.
                 </p>
                 <button
@@ -135,7 +136,7 @@ export default function ContactPage() {
                 onSubmit={handleSubmit}
               >
                 <h3 className="mb-2 font-serif text-xl font-bold text-foreground">
-                  Formulaire de Contact
+                  Formulaire de contact
                 </h3>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -153,7 +154,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground">
-                      Téléphone *
+                      Telephone *
                     </label>
                     <input
                       className="w-full border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
@@ -185,7 +186,7 @@ export default function ContactPage() {
                   <textarea
                     className="w-full resize-none border border-border bg-input px-4 py-3 text-sm text-foreground transition-colors placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
                     onChange={(event) => setForm({ ...form, message: event.target.value })}
-                    placeholder="Décrivez votre demande..."
+                    placeholder="Decrivez votre demande..."
                     rows={5}
                     value={form.message}
                   />
@@ -199,8 +200,8 @@ export default function ContactPage() {
                     type="checkbox"
                   />
                   <span>
-                    CONSENTEMENT : J'accepte que mes données soient utilisées pour le traitement
-                    de ma demande en conformité avec la loi 18-07 révisée et compléter par la loi
+                    CONSENTEMENT : J'accepte que mes donnees soient utilisees pour le traitement
+                    de ma demande en conformite avec la loi 18-07 revisee et completer par la loi
                     11-25.
                   </span>
                 </label>

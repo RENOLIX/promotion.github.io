@@ -1,4 +1,4 @@
-import { Menu, X } from "lucide-react";
+import { Menu, Phone, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { siteInfo } from "../../lib/site";
@@ -53,7 +53,14 @@ export default function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
+        <div className="hidden items-center gap-3 lg:flex">
+          <a
+            className="inline-flex items-center gap-2 rounded-full border border-[#6f5330]/18 bg-card/80 px-4 py-3 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+            href={`tel:${siteInfo.phoneHref}`}
+          >
+            <Phone size={16} className="text-primary" />
+            {siteInfo.phone}
+          </a>
           <Link
             className="inline-flex items-center gap-3 bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-colors hover:bg-primary/90"
             to="/contact"
@@ -89,6 +96,13 @@ export default function SiteHeader() {
               {link.label}
             </NavLink>
           ))}
+          <a
+            className="mt-2 inline-flex items-center justify-center gap-3 rounded-full border border-[#6f5330]/18 bg-card/80 px-6 py-3 text-sm font-medium text-foreground"
+            href={`tel:${siteInfo.phoneHref}`}
+          >
+            <Phone size={16} className="text-primary" />
+            {siteInfo.phone}
+          </a>
           <Link
             className="mt-2 inline-flex items-center justify-center gap-3 bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-[0.18em] text-primary-foreground"
             to="/contact"

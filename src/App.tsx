@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
+import SiteAudio from "./components/layout/SiteAudio";
 import { DefaultProviders } from "./components/providers/default";
 import { getRouterBasename } from "./lib/utils";
 import AProposPage from "./pages/a-propos/page";
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <DefaultProviders>
       <BrowserRouter basename={getRouterBasename()}>
+        <SiteAudio />
         <ScrollToTop />
         <Routes>
           <Route path="/auth/callback" element={<AuthCallback />} />

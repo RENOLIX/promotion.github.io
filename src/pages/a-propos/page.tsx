@@ -101,6 +101,11 @@ export default function AProposPage() {
             </h2>
             <p className="mb-4 leading-relaxed text-muted-foreground">{siteInfo.description}</p>
             <p className="mb-4 leading-relaxed text-muted-foreground">{siteInfo.longDescription}</p>
+            <p className="mb-4 leading-relaxed text-muted-foreground">
+              La direction generale est assuree par {siteInfo.directorGeneral}, garantissant une
+              lecture exigeante de la qualite architecturale, des prestations et de
+              l'accompagnement client.
+            </p>
             <p className="leading-relaxed text-muted-foreground">
               Le dernier etage en attique offre des espaces exterieurs genereux et une vue
               panoramique sur la commune de Draria, dans une residence pensee pour un quotidien
