@@ -63,7 +63,7 @@ export default function SiteAudio() {
   useEffect(() => {
     const timer = window.setTimeout(() => {
       setShowMobileLabel(false);
-    }, 5000);
+    }, 10000);
 
     return () => {
       window.clearTimeout(timer);
@@ -90,16 +90,14 @@ export default function SiteAudio() {
     <>
       <audio ref={audioRef} preload="auto">
         <source
-          src={`${import.meta.env.BASE_URL}el-azzali/bach-prelude.mp3`}
+          src={`${import.meta.env.BASE_URL}el-azzali/site-ambience.mp3`}
           type="audio/mpeg"
         />
       </audio>
 
       <button
         aria-label={isPlaying ? "Couper la musique du site" : "Activer la musique du site"}
-        className={`fixed bottom-5 right-5 z-[80] flex items-center rounded-full border border-[#6f5330]/18 bg-[rgba(255,248,238,0.92)] py-3 text-left shadow-[0_18px_40px_rgba(77,55,28,0.16)] backdrop-blur-xl transition-all hover:-translate-y-0.5 ${
-          showMobileLabel ? "gap-3 px-4" : "gap-0 px-3 sm:gap-3 sm:px-4"
-        }`}
+        className="fixed bottom-5 right-5 z-[80] flex items-center gap-3 rounded-full border border-[#6f5330]/18 bg-[rgba(255,248,238,0.92)] px-4 py-3 text-left shadow-[0_18px_40px_rgba(77,55,28,0.16)] backdrop-blur-xl transition-transform hover:-translate-y-0.5"
         onClick={() => {
           void togglePlayback();
         }}
