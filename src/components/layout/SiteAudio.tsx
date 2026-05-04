@@ -6,6 +6,7 @@ export default function SiteAudio() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [showMobileLabel, setShowMobileLabel] = useState(true);
 
   const startPlayback = useCallback(async () => {
     const audio = audioRef.current;
@@ -59,6 +60,16 @@ export default function SiteAudio() {
     };
   }, [startPlayback]);
 
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setShowMobileLabel(false);
+    }, 5000);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, []);
+
   const togglePlayback = async () => {
     const audio = audioRef.current;
 
@@ -86,7 +97,9 @@ export default function SiteAudio() {
 
       <button
         aria-label={isPlaying ? "Couper la musique du site" : "Activer la musique du site"}
-        className="fixed bottom-5 right-5 z-[80] flex items-center gap-3 rounded-full border border-[#6f5330]/18 bg-[rgba(255,248,238,0.92)] px-4 py-3 text-left shadow-[0_18px_40px_rgba(77,55,28,0.16)] backdrop-blur-xl transition-transform hover:-translate-y-0.5"
+        className={`fixed bottom-5 right-5 z-[80] flex items-center rounded-full border border-[#6f5330]/18 bg-[rgba(255,248,238,0.92)] py-3 text-left shadow-[0_18px_40px_rgba(77,55,28,0.16)] backdrop-blur-xl transition-all hover:-translate-y-0.5 ${
+          showMobileLabel ? "gap-3 px-4" : "gap-0 px-3 sm:gap-3 sm:px-4"
+        }`}
         onClick={() => {
           void togglePlayback();
         }}
@@ -95,7 +108,7 @@ export default function SiteAudio() {
         <span className="flex size-10 items-center justify-center rounded-full bg-primary text-primary-foreground">
           {isPlaying ? <Pause size={16} /> : <Play size={16} className="ml-0.5" />}
         </span>
-        <span className="hidden sm:block">
+        <span className={`${showMobileLabel ? "block" : "hidden"} sm:block`}>
           <span className="flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-[#8c6d45]">
             <Music4 size={13} />
             Ambiance du site
