@@ -4,6 +4,7 @@ import { siteInfo } from "../../lib/site";
 
 export default function SiteAudio() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const allowScreenResumeRef = useRef(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [showMobileLabel, setShowMobileLabel] = useState(true);
@@ -37,6 +38,10 @@ export default function SiteAudio() {
     const handlePause = () => setIsPlaying(false);
     const handleCanPlay = () => setIsReady(true);
     const unlockPlayback = () => {
+      if (!allowScreenResumeRef.current || audio.paused === false) {
+        return;
+      }
+
       void startPlayback();
     };
 
@@ -78,10 +83,12 @@ export default function SiteAudio() {
     }
 
     if (audio.paused) {
+      allowScreenResumeRef.current = true;
       await startPlayback();
       return;
     }
 
+    allowScreenResumeRef.current = false;
     audio.pause();
     setIsPlaying(false);
   };
