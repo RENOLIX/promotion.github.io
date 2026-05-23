@@ -55,7 +55,7 @@ export default function SiteHeader() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <a
-            className="inline-flex items-center gap-2 rounded-full border border-[#6f5330]/18 bg-card/80 px-4 py-3 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
+            className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full border border-[#6f5330]/18 bg-card/80 px-4 py-3 text-sm font-medium text-foreground transition-colors hover:border-primary hover:text-primary"
             href={`tel:${siteInfo.phoneHref}`}
           >
             <Phone size={16} className="text-primary" />
@@ -97,7 +97,7 @@ export default function SiteHeader() {
             </NavLink>
           ))}
           <a
-            className="mt-2 inline-flex items-center justify-center gap-3 rounded-full border border-[#6f5330]/18 bg-card/80 px-6 py-3 text-sm font-medium text-foreground"
+            className="mt-2 inline-flex items-center justify-center gap-3 whitespace-nowrap rounded-full border border-[#6f5330]/18 bg-card/80 px-6 py-3 text-sm font-medium text-foreground"
             href={`tel:${siteInfo.phoneHref}`}
           >
             <Phone size={16} className="text-primary" />
